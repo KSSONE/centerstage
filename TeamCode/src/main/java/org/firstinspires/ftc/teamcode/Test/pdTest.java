@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.util.Range;
 
 @Autonomous(name = "PD Test")
 public class pdTest extends LinearOpMode {
@@ -46,13 +47,15 @@ public class pdTest extends LinearOpMode {
         motorBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
         waitForStart();
         while (opModeIsActive()) {
-            double power = PDController(0.002, 0.0005, 500, motorBackLeft.getCurrentPosition());
+            double power = PDController(0.002, 0.005, 5000, motorBackLeft.getCurrentPosition());
 
 
             motorFrontRight.setPower(power);
             motorFrontLeft.setPower(power);
             motorBackRight.setPower(power);
             motorBackLeft.setPower(power);
+
+
         }
     }
 
@@ -63,7 +66,15 @@ public class pdTest extends LinearOpMode {
         double dOut = derivativeGain * (error - previousError);
         previousError = error;
 
+        telemetry.addData("motor power", pOut+dOut);
+        telemetry.addData("pOut", pOut);
+        telemetry.addData("dOut", dOut);
+        telemetry.addData("error", error);
+        telemetry.addData("prvError", previousError);
+        telemetry.addData("process", processVariable);
+        telemetry.addData("position", motorBackLeft.getCurrentPosition());
+        telemetry.update();
 
-        return pOut + dOut;
+        return Range.clip(pOut + dOut, -1,1);
     }
 }
