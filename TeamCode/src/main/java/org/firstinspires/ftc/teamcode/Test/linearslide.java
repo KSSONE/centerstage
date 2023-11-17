@@ -7,7 +7,6 @@ public class linearslide extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        // Initialize the motor
         motor = hardwareMap.get(DcMotor.class, "motor");
         motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -16,7 +15,7 @@ public class linearslide extends LinearOpMode {
 
         while (opModeIsActive()) {
             if (gamepad1.a) {
-                if (motor.getCurrentPosition() < 5 * 1120) { // encoder resolution
+                if (motor.getCurrentPosition() < 3950) { // encoder resolution
                     motor.setPower(0.5);
                 } else {
                     motor.setPower(0.0);
