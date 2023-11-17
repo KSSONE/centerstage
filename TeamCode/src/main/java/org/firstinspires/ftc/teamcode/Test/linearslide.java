@@ -26,7 +26,7 @@ public class linearslide extends LinearOpMode {
                 }
             }
             else if (gamepad1.x) {
-                if (slideLimitSwitch.getState() == true) {
+                if (slideLimitSwitch.getState() == false) {
                     motor.setPower(-0.2);
                 } else {
                     motor.setPower(0.0);
