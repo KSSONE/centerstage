@@ -3,12 +3,15 @@ package org.firstinspires.ftc.teamcode.Main;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
 public class TeleOpMode extends LinearOpMode {
 
     private DcMotor FLeft, FRight, BLeft, BRight;
     private DcMotor slide;
+
+    private Servo claw;
 
     @Override
     public void runOpMode() {
@@ -20,6 +23,9 @@ public class TeleOpMode extends LinearOpMode {
 
         // Slide
         slide = hardwareMap.dcMotor.get("slide");
+
+        // Claw
+        claw = hardwareMap.servo.get("claw");
 
         // Direction
         FLeft.setDirection(DcMotor.Direction.REVERSE);
@@ -102,5 +108,13 @@ public class TeleOpMode extends LinearOpMode {
             slide.setPower(0.0);
         }
         telemetry.addData("Motor Position", slide.getCurrentPosition());
+    }
+
+    private void claws() {
+        if (gamepad1.x) {
+            claw.setPosition(0.5);
+        } else if (gamepad1.y) {
+            claw.setPosition(0);
+        }
     }
 }
