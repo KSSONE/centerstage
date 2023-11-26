@@ -47,7 +47,7 @@ public class TeleOpMode extends LinearOpMode {
 
         while (opModeIsActive()) {
             driveRobot();
-            linearslide();
+           // linearslide();
             claws();
         }
 
