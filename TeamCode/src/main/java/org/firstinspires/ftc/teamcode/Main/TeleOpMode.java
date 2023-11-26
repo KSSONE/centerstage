@@ -48,6 +48,7 @@ public class TeleOpMode extends LinearOpMode {
         while (opModeIsActive()) {
             driveRobot();
             linearslide();
+            claws();
         }
 
         stopMotors();
@@ -124,5 +125,5 @@ public class TeleOpMode extends LinearOpMode {
 
         telemetry.update();
     }
-    
+
 }
