@@ -31,5 +31,8 @@ public class servo extends LinearOpMode {
             claw.setPosition(0);
             telemetry.addData("Claw Position", "Closed");
         }
+        telemetry.addData("Servo Position", "%.2f", claw.getPosition());
+
+        telemetry.update();
     }
 }
