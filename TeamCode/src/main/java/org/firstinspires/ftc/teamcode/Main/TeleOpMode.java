@@ -113,8 +113,16 @@ public class TeleOpMode extends LinearOpMode {
     private void claws() {
         if (gamepad1.x) {
             claw.setPosition(0.5);
+            telemetry.addData("Claw Position", "Open");
         } else if (gamepad1.y) {
             claw.setPosition(0);
+            telemetry.addData("Claw Position", "Closed");
         }
+
+
+        telemetry.addData("Servo Position", "%.2f", claw.getPosition());
+
+        telemetry.update();
     }
+    
 }
