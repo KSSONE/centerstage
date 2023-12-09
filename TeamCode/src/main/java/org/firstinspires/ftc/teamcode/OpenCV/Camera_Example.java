@@ -75,10 +75,9 @@ public class Camera_Example extends LinearOpMode
 
         telemetry.setMsTransmissionInterval(50);
 
-        /*
-         * The INIT-loop:
-         * This REPLACES waitForStart!
-         */
+        waitForStart();
+
+
         while (!isStarted() && !isStopRequested())
         {
             ArrayList<AprilTagDetection> currentDetections = aprilTagDetectionPipeline.getLatestDetections();
@@ -173,20 +172,42 @@ public class Camera_Example extends LinearOpMode
         while (opModeIsActive()) {sleep(20);}
     }
 
-    void tagToTelemetry(AprilTagDetection detection)
-    {
+    void tagToTelemetry(AprilTagDetection detection) {
         Orientation rot = Orientation.getOrientation(detection.pose.R, AxesReference.INTRINSIC, AxesOrder.YXZ, AngleUnit.DEGREES);
         // direction
         telemetry.addLine(String.format("\nDetected tag ID=%d", detection.id));
-        telemetry.addLine(String.format("Translation X: %.2f feet", detection.pose.x*FEET_PER_METER));
-        telemetry.addLine(String.format("Translation Y: %.2f feet", detection.pose.y*FEET_PER_METER));
-        telemetry.addLine(String.format("Translation Z: %.2f feet", detection.pose.z*FEET_PER_METER));
-        //rotation
+        telemetry.addLine(String.format("Translation X: %.2f feet", detection.pose.x * FEET_PER_METER));
+        telemetry.addLine(String.format("Translation Y: %.2f feet", detection.pose.y * FEET_PER_METER));
+        telemetry.addLine(String.format("Translation Z: %.2f feet", detection.pose.z * FEET_PER_METER));
+        // rotation
         telemetry.addLine(String.format("Rotation X: %.2f degrees", rot.thirdAngle));
         telemetry.addLine(String.format("Rotation Y: %.2f degrees", rot.secondAngle));
         telemetry.addLine(String.format("Rotation Z: %.2f degrees", rot.firstAngle));
 
-
-
+        tagsCode(detection); // Pass 'detection' to the tagsCode method
     }
+ //  CODE
+    private void tagsCode(AprilTagDetection detection) {
+        if (tagOfInterest != null) {
+            if (tagOfInterest.id == left) {
+                if (detection.pose.z * FEET_PER_METER <= 1) {
+                    motor.setPower(0);
+                } else if (detection.pose.z * FEET_PER_METER >= 3) {
+                    motor.setPower(0.5);
+                }
+            } else if (tagOfInterest.id == middle) {
+                // Handle behavior for the middle tag
+                // Perform actions or set motor power accordingly
+            } else if (tagOfInterest.id == right) {
+                // Handle behavior for the right tag
+                // Perform actions or set motor power accordingly
+            }
+        } else {
+            // Handle the case when no tag of interest is detected
+            // For example:
+            // motor.setPower(0); // Stop the motor
+        }
+    }
+
+
 }
