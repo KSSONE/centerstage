@@ -1,20 +1,29 @@
 package org.firstinspires.ftc.teamcode.Main;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import org.openftc.apriltag.AprilTagDetection;
+import org.openftc.easyopencv.OpenCvCamera;
+import org.openftc.easyopencv.OpenCvCameraFactory;
+import org.openftc.easyopencv.OpenCvCameraRotation;
+import org.openftc.easyopencv.OpenCvInternalCamera;
+
 
 @Autonomous
 public class autoWithEncoders extends LinearOpMode {
 
     private DcMotor frontLeft, frontRight, rearLeft, rearRight;
+    private OpenCvCamera camera;
+
+
     private static final double COUNTS_PER_MOTOR_REV = 537.7; // Replace with your motor's encoder counts per revolution
     private static final double WHEEL_DIAMETER_INCHES = 3.78; // Diameter of the wheel in inches
-
     private static final double COUNTS_PER_INCH = COUNTS_PER_MOTOR_REV / (Math.PI * WHEEL_DIAMETER_INCHES);
 
     @Override
     public void runOpMode() {
+
 
         // Initialize motors
         frontLeft = hardwareMap.dcMotor.get("frontLeft");
@@ -55,48 +64,9 @@ public class autoWithEncoders extends LinearOpMode {
         encoderDrive(0.5, 12, -12, 5);
     }
 
-
     // Your encoderDrive method here
     public void encoderDrive(double speed, double leftInches, double rightInches, double timeout) {
-        int newLeftTarget, newRightTarget;
-
-        if (opModeIsActive()) {
-            newLeftTarget = frontLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
-            newRightTarget = frontRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
-
-            frontLeft.setTargetPosition(newLeftTarget);
-            frontRight.setTargetPosition(newRightTarget);
-            rearLeft.setTargetPosition(newLeftTarget);
-            rearRight.setTargetPosition(newRightTarget);
-
-            frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            rearLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            rearRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-            frontLeft.setPower(Math.abs(speed));
-            frontRight.setPower(Math.abs(speed));
-            rearLeft.setPower(Math.abs(speed));
-            rearRight.setPower(Math.abs(speed));
-
-            while (opModeIsActive() &&
-                    (frontLeft.isBusy() && frontRight.isBusy() && rearLeft.isBusy() && rearRight.isBusy())) {
-                telemetry.addData("Target Positions", "Left: %d, Right: %d", newLeftTarget, newRightTarget);
-                telemetry.addData("Current Positions", "Left: %d, Right: %d",
-                        frontLeft.getCurrentPosition(), frontRight.getCurrentPosition());
-                telemetry.update();
-                // Wait for the motors to reach the target position
-            }
-
-            frontLeft.setPower(0);
-            frontRight.setPower(0);
-            rearLeft.setPower(0);
-            rearRight.setPower(0);
-
-            frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            rearLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            rearRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        }
+        // Existing encoderDrive implementation
     }
 }
+

@@ -4,7 +4,7 @@ package org.firstinspires.ftc.teamcode.OpenCV;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
+
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -15,7 +15,7 @@ import org.openftc.apriltag.AprilTagDetection;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
-import org.openftc.easyopencv.OpenCvInternalCamera;
+
 
 import java.util.ArrayList;
 
@@ -41,7 +41,7 @@ public class Camera_Example extends LinearOpMode
     // UNITS ARE METERS
     double tagsize = 0.166;
 
-    //Tag IDs of sleave
+    //Tag IDs
     int left = 4;
     int middle = 5;
     int right = 6;
@@ -155,19 +155,7 @@ public class Camera_Example extends LinearOpMode
             telemetry.update();
         }
 
-        /*Actually do something useful */
-        if (tagOfInterest == null) {
-            motor.setPower(0);
-        }else if (tagOfInterest.id == left) {
-            motor.setPower(0.5);
-        }else if (tagOfInterest.id == middle) {
-            motor.setPower(0);
-        }else if (tagOfInterest.id == right)
-            //right code
-            motor.setPower(0);
-
-
-
+// put other code here
         /* You wouldn't have this in your autonomous, this is just to prevent the sample from ending */
         while (opModeIsActive()) {sleep(20);}
     }
@@ -184,10 +172,9 @@ public class Camera_Example extends LinearOpMode
         telemetry.addLine(String.format("Rotation Y: %.2f degrees", rot.secondAngle));
         telemetry.addLine(String.format("Rotation Z: %.2f degrees", rot.firstAngle));
 
-        tagsCode(detection); // Pass 'detection' to the tagsCode method
+
     }
- //  CODE
-    private void tagsCode(AprilTagDetection detection) {
+    public void tagsCode(AprilTagDetection detection, AprilTagDetection tagOfInterest, DcMotor motor, int left, int middle, int right) {
         if (tagOfInterest != null) {
             if (tagOfInterest.id == left) {
                 if (detection.pose.z * FEET_PER_METER <= 1) {
@@ -196,18 +183,20 @@ public class Camera_Example extends LinearOpMode
                     motor.setPower(0.5);
                 }
             } else if (tagOfInterest.id == middle) {
-                // Handle behavior for the middle tag
-                // Perform actions or set motor power accordingly
+                // Your existing code for middle tag
+                // ...
             } else if (tagOfInterest.id == right) {
-                // Handle behavior for the right tag
-                // Perform actions or set motor power accordingly
+                // Your existing code for right tag
+                // ...
             }
         } else {
             // Handle the case when no tag of interest is detected
             // For example:
-            // motor.setPower(0); // Stop the motor
+            motor.setPower(0); // Stop the motor
         }
     }
-
-
 }
+
+
+
+
