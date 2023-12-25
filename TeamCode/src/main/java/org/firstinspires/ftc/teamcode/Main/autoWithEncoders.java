@@ -11,7 +11,7 @@ import org.openftc.easyopencv.OpenCvInternalCamera;
 
 
 @Autonomous
-public class autoWithEncoders extends LinearOpMode {
+public class  autoWithEncoders extends LinearOpMode {
 
     private DcMotor frontLeft, frontRight, rearLeft, rearRight;
     private OpenCvCamera camera;
