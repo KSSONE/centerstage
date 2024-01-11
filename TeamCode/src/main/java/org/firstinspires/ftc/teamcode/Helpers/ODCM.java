@@ -6,6 +6,7 @@ import java.util.List;
 import org.firstinspires.ftc.robotcore.external.JavaUtil;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.PtzControl;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.tfod.TfodProcessor;
@@ -22,6 +23,8 @@ public class ODCM extends LinearOpMode {
      */
     @Override
     public void runOpMode() {
+
+
         // This 2023-2024 OpMode illustrates the basics of TensorFlow Object Detection, using
         // a custom TFLite object detection model.
         USE_WEBCAM = true;
@@ -31,12 +34,15 @@ public class ODCM extends LinearOpMode {
         telemetry.addData("DS preview on/off", "3 dots, Camera Stream");
         telemetry.addData(">", "Touch Play to start OpMode");
         telemetry.update();
+        // Set the zoom.
+
         waitForStart();
         if (opModeIsActive()) {
             // Put run blocks here.
             while (opModeIsActive()) {
                 // Put loop blocks here.
                 telemetryTfod();
+                telemetryTfodmain();
                 // Push telemetry to the Driver Station.
                 telemetry.update();
                 if (gamepad1.dpad_down) {
@@ -62,7 +68,7 @@ public class ODCM extends LinearOpMode {
         // First, create a TfodProcessor.Builder.
         myTfodProcessorBuilder = new TfodProcessor.Builder();
         // Set the name of the file where the model can be found.
-        myTfodProcessorBuilder.setModelFileName("Test.tflite");
+        myTfodProcessorBuilder.setModelFileName("Centerstage.tflite");
         // Set the full ordered list of labels the model is trained to recognize.
         myTfodProcessorBuilder.setModelLabels(JavaUtil.createListWith("red Toy"));
         // Set the aspect ratio for the images used when the model was created.
@@ -113,6 +119,28 @@ public class ODCM extends LinearOpMode {
             // Display size
             // Display the size of detection boundary for the recognition
             telemetry.addData("- Size", JavaUtil.formatNumber(myTfodRecognition.getWidth(), 0) + " x " + JavaUtil.formatNumber(myTfodRecognition.getHeight(), 0));
+        }
+    }
+
+    private void telemetryTfodmain() {
+        List<Recognition> myTfodRecognitions = myTfodProcessor.getRecognitions();
+        for (Recognition recognition : myTfodRecognitions) {
+            float x = (recognition.getLeft() + recognition.getRight()) / 2;
+            float y = (recognition.getTop() + recognition.getBottom()) / 2;
+
+            // Put ranges for x and y coordinates
+            float xMinRange = 2; // Your minimum x value
+            float xMaxRange = 2; // Your maximum x value
+            float yMinRange = 2; // Your minimum y value
+            float yMaxRange = 2; // Your maximum y value
+
+            // Check if the detected object is within a certain range
+            if (x >= xMinRange && x <= xMaxRange && y >= yMinRange && y <= yMaxRange) {
+
+                // Do something when the object is within range (x, y) to (x, y)
+            } /*else if () {
+
+            }*/
         }
     }
 }
