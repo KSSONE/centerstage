@@ -47,10 +47,10 @@ public class ODCM extends LinearOpMode {
                 int location = 3000;
                 telemetryTfod();
                 location = telemetryTfodmain();
-                while (time < 5){
+                while (time < 2){
                     telemetryTfod();
                     location = telemetryTfodmain();
-                    time +=1;
+                    time = time + 1;
                     sleep(30);
                 }
                 telemetry.addData("Location", location);
