@@ -47,15 +47,15 @@ public class ODCM extends LinearOpMode {
                 //telemetryTfodmain();
                 // Push telemetry to the Driver Station.
                 telemetry.update();
-                if (gamepad1.dpad_down) {
+               /* if (gamepad1.dpad_down) {
                     // Temporarily stop the streaming session.
                     myVisionPortal.stopStreaming();
                 } else if (gamepad1.dpad_up) {
                     // Resume the streaming session if previously stopped.
                     myVisionPortal.resumeStreaming();
-                }
+                }*/
                 // Share the CPU.
-                sleep(20);
+                sleep(30);
             }
         }
     }
@@ -135,9 +135,7 @@ public class ODCM extends LinearOpMode {
 
         List<Recognition> myTfodRecognitions = myTfodProcessor.getRecognitions();
 
-        int detectionBool = JavaUtil.listLength(myTfodRecognitions);
-        int detection = 0;
-        int detetionBool = detection;
+
         for (Recognition recognition : myTfodRecognitions) {
             float x = (recognition.getLeft() + recognition.getRight()) / 2;
             float y = (recognition.getTop() + recognition.getBottom()) / 2;
@@ -153,26 +151,22 @@ public class ODCM extends LinearOpMode {
             float xMinRangel = 40; // Your maximum x value
             //float yMinRangel = 2; // Your minimum y value
             //float yMaxRangel = 2; // Your maximum y value
-            telemetry.addData("", detection);
+
 
 
             // Check if the detected object is within a certain range
 
-            if (detectionBool == 0) {
-                // Do something if the object is not in either range (this would be right)
-                telemetry.addData("Object is not detected, so it is in the right", "");
-            }
+
 
             if (x <= xMaxRangec && x >= xMinRangec) {
                 // Do something when the object is within range (x, y) to (x, y) for centre
                 telemetry.addData("Object is in the centre", "");
-            } else if //(x <= xMaxRangel && x >= xMinRangel)
-            (detectionBool < 1) {
+            } else if (x <= xMaxRangel && x >= xMinRangel){
+
                 // Do something when the object is within range (x, y) to (x, y) for left
                 telemetry.addData("Object is in the left", "");
             } else {
                 telemetry.addData("object is not detected, so object is on the right", "");
-                telemetry.update();
             }
         }
     }
