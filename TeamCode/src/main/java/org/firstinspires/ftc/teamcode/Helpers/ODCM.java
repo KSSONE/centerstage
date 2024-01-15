@@ -171,7 +171,7 @@ public class ODCM extends LinearOpMode {
                 // Do something when the object is within range (x, y) to (x, y) for left
                 telemetry.addData("Object is in the left", "");
             } else {
-                telemetry.addData("false", "");
+                telemetry.addData("object is not detected, so object is on the right", "");
                 telemetry.update();
             }
         }
