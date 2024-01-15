@@ -42,20 +42,21 @@ public class ODCM extends LinearOpMode {
             while (opModeIsActive()) {
                 // Put loop blocks here.
                 //detection();
+
+                int time= 0;
+                int location = 3000;
                 telemetryTfod();
-                telemetryTfodmain();
+                location = telemetryTfodmain();
+                while (time < 5){
+                    telemetryTfod();
+                    location = telemetryTfodmain();
+                    time +=1;
+                }
+                telemetry.addData("Location", location);
                 //telemetryTfodmain();
                 // Push telemetry to the Driver Station.
-                telemetry.update();
-                if (gamepad1.dpad_down) {
-                    // Temporarily stop the streaming session.
-                    myVisionPortal.stopStreaming();
-                } else if (gamepad1.dpad_up) {
-                    // Resume the streaming session if previously stopped.
-                    myVisionPortal.resumeStreaming();
-                }
                 // Share the CPU.
-                sleep(20);
+                sleep(30);
             }
         }
     }
@@ -132,46 +133,51 @@ public class ODCM extends LinearOpMode {
 
 
 
-    private void telemetryTfodmain() {
+    private int telemetryTfodmain() {
 
         List<Recognition> myTfodRecognitions = myTfodProcessor.getRecognitions();
 
         int detectionBool = JavaUtil.listLength(myTfodRecognitions);
-        for (Recognition recognition : myTfodRecognitions) {
-            float x = (recognition.getLeft() + recognition.getRight()) / 2;
-            float y = (recognition.getTop() + recognition.getBottom()) / 2;
+        telemetry.addData("Item numbers", myTfodRecognitions);
+        telemetry.update();
+        int position = 0;
+        if (detectionBool != 0) {
+            for (Recognition recognition : myTfodRecognitions) {
 
-            // Put ranges for x and y coordinates
-            float xMaxRangec = 580; // Your minimum x value
-            float xMinRangec = 250; // Your maximum x value
-            //float yMinRangec = 2; // Your minimum y value
-            //float yMaxRangec = 2; // Your maximum y value
+                float x = x = (recognition.getLeft() + recognition.getRight()) / 2;
 
-            // second
-            float xMaxRangel = 249; // Your minimum x value
-            float xMinRangel = 40; // Your maximum x value
-            //float yMinRangel = 2; // Your minimum y value
-            //float yMaxRangel = 2; // Your maximum y value
+                // Put ranges for x and y coordinates
+                double xMaxRangec = 580; // Your minimum x value
+                double xMinRangec = 250; // Your maximum x value
 
-
+                // second
+                double xMaxRangel = 249; // Your minimum x value
+                double xMinRangel = 40; // Your maximum x value
 
 
+                if (x <= xMaxRangec && x >= xMinRangec) {
+                    position = 2;
+                    telemetry.addData("Object is in the centre", "");
+                    telemetry.addData("X:", x);
+                    telemetry.update();
+                }
+                else if (x <= xMaxRangel && x >= xMinRangel) {
+                    position = 1;
+                    telemetry.addData("Object is in the left", "");
+                    telemetry.addData("X:", x);
+                    telemetry.update();
+                }
 
-            // Check if the detected object is within a certain range
 
-            if (detectionBool == 0) {
-                // Do something if the object is not in either range (this would be right)
-                telemetry.addData("Object is not detected, so it is in the right", "");
+
             }
-
-            if (x <= xMaxRangec && x >= xMinRangec) {
-                // Do something when the object is within range (x, y) to (x, y) for centre
-                telemetry.addData("Object is in the centre", "");
-            } else if (x <= xMaxRangel && x >= xMinRangel) {
-                // Do something when the object is within range (x, y) to (x, y) for left
-                telemetry.addData("Object is in the left", "");
-            }
+        } else {
+            position = 3;
+            telemetry.addData("Object is in the right", "");
+            telemetry.update();
 
         }
+
+        return position;
     }
 }
