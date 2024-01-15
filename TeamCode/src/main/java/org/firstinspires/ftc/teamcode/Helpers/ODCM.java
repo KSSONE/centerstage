@@ -6,12 +6,12 @@ import java.util.List;
 import org.firstinspires.ftc.robotcore.external.JavaUtil;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.PtzControl;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
 @TeleOp(name = "ODCM (Blocks to Java)")
+
 public class ODCM extends LinearOpMode {
 
     boolean USE_WEBCAM;
@@ -41,8 +41,10 @@ public class ODCM extends LinearOpMode {
             // Put run blocks here.
             while (opModeIsActive()) {
                 // Put loop blocks here.
+                //detection();
                 telemetryTfod();
                 telemetryTfodmain();
+                //telemetryTfodmain();
                 // Push telemetry to the Driver Station.
                 telemetry.update();
                 if (gamepad1.dpad_down) {
@@ -66,15 +68,17 @@ public class ODCM extends LinearOpMode {
         VisionPortal.Builder myVisionPortalBuilder;
 
         // First, create a TfodProcessor.Builder.
+
         myTfodProcessorBuilder = new TfodProcessor.Builder();
         // Set the name of the file where the model can be found.
-        myTfodProcessorBuilder.setModelFileName("Centerstage.tflite");
+        myTfodProcessorBuilder.setModelFileName("Red_Block.tflite");
         // Set the full ordered list of labels the model is trained to recognize.
-        myTfodProcessorBuilder.setModelLabels(JavaUtil.createListWith("red Toy"));
+        myTfodProcessorBuilder.setModelLabels(JavaUtil.createListWith("Red Block"));
         // Set the aspect ratio for the images used when the model was created.
         myTfodProcessorBuilder.setModelAspectRatio(16 / 9);
         // Create a TfodProcessor by calling build.
         myTfodProcessor = myTfodProcessorBuilder.build();
+
         // Next, create a VisionPortal.Builder and set attributes related to the camera.
         myVisionPortalBuilder = new VisionPortal.Builder();
         if (USE_WEBCAM) {
@@ -88,6 +92,8 @@ public class ODCM extends LinearOpMode {
         myVisionPortalBuilder.addProcessor(myTfodProcessor);
         // Create a VisionPortal by calling build.
         myVisionPortal = myVisionPortalBuilder.build();
+
+
     }
 
     /**
@@ -101,6 +107,7 @@ public class ODCM extends LinearOpMode {
 
         // Get a list of recognitions from TFOD.
         myTfodRecognitions = myTfodProcessor.getRecognitions();
+
         telemetry.addData("# Objects Detected", JavaUtil.listLength(myTfodRecognitions));
         // Iterate through list and call a function to
         // display info for each recognized object.
@@ -122,25 +129,49 @@ public class ODCM extends LinearOpMode {
         }
     }
 
+
+
+
     private void telemetryTfodmain() {
+
         List<Recognition> myTfodRecognitions = myTfodProcessor.getRecognitions();
+
+        int detectionBool = JavaUtil.listLength(myTfodRecognitions);
         for (Recognition recognition : myTfodRecognitions) {
             float x = (recognition.getLeft() + recognition.getRight()) / 2;
             float y = (recognition.getTop() + recognition.getBottom()) / 2;
 
             // Put ranges for x and y coordinates
-            float xMinRange = 2; // Your minimum x value
-            float xMaxRange = 2; // Your maximum x value
-            float yMinRange = 2; // Your minimum y value
-            float yMaxRange = 2; // Your maximum y value
+            float xMaxRangec = 580; // Your minimum x value
+            float xMinRangec = 250; // Your maximum x value
+            //float yMinRangec = 2; // Your minimum y value
+            //float yMaxRangec = 2; // Your maximum y value
+
+            // second
+            float xMaxRangel = 249; // Your minimum x value
+            float xMinRangel = 40; // Your maximum x value
+            //float yMinRangel = 2; // Your minimum y value
+            //float yMaxRangel = 2; // Your maximum y value
+
+
+
+
 
             // Check if the detected object is within a certain range
-            if (x >= xMinRange && x <= xMaxRange && y >= yMinRange && y <= yMaxRange) {
 
-                // Do something when the object is within range (x, y) to (x, y)
-            } /*else if () {
+            if (detectionBool == 0) {
+                // Do something if the object is not in either range (this would be right)
+                telemetry.addData("Object is not detected, so it is in the right", "");
+            }
 
-            }*/
+            if (x <= xMaxRangec && x >= xMinRangec) {
+                // Do something when the object is within range (x, y) to (x, y) for centre
+                telemetry.addData("Object is in the centre", "");
+            } else if (x <= xMaxRangel && x >= xMinRangel) {
+                // Do something when the object is within range (x, y) to (x, y) for left
+                telemetry.addData("Object is in the left", "");
+            }
+
         }
     }
 }
