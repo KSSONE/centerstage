@@ -49,6 +49,7 @@ public class sampleTest extends LinearOpMode {
         encoder value to travel half tile =
      */
 
+<<<<<<< Updated upstream
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -314,3 +315,9 @@ public class sampleTest extends LinearOpMode {
             String limitSwitchOutput = "no";
         }
     }*/
+=======
+public class sampleTest {
+    int a = 12;
+
+}
+>>>>>>> Stashed changes
