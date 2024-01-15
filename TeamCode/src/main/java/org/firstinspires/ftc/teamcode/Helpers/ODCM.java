@@ -51,12 +51,13 @@ public class ODCM extends LinearOpMode {
                     telemetryTfod();
                     location = telemetryTfodmain();
                     time +=1;
+                    sleep(30);
                 }
                 telemetry.addData("Location", location);
                 //telemetryTfodmain();
                 // Push telemetry to the Driver Station.
                 // Share the CPU.
-                sleep(30);
+                sleep(300000);
             }
         }
     }
