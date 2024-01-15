@@ -126,10 +126,9 @@ public class ODCM extends LinearOpMode {
             // Display size
             // Display the size of detection boundary for the recognition
             telemetry.addData("- Size", JavaUtil.formatNumber(myTfodRecognition.getWidth(), 0) + " x " + JavaUtil.formatNumber(myTfodRecognition.getHeight(), 0));
+
         }
     }
-
-
 
 
     private void telemetryTfodmain() {
@@ -137,6 +136,8 @@ public class ODCM extends LinearOpMode {
         List<Recognition> myTfodRecognitions = myTfodProcessor.getRecognitions();
 
         int detectionBool = JavaUtil.listLength(myTfodRecognitions);
+        int detection = 0;
+        int detetionBool = detection;
         for (Recognition recognition : myTfodRecognitions) {
             float x = (recognition.getLeft() + recognition.getRight()) / 2;
             float y = (recognition.getTop() + recognition.getBottom()) / 2;
@@ -152,9 +153,7 @@ public class ODCM extends LinearOpMode {
             float xMinRangel = 40; // Your maximum x value
             //float yMinRangel = 2; // Your minimum y value
             //float yMaxRangel = 2; // Your maximum y value
-
-
-
+            telemetry.addData("", detection);
 
 
             // Check if the detected object is within a certain range
@@ -167,11 +166,14 @@ public class ODCM extends LinearOpMode {
             if (x <= xMaxRangec && x >= xMinRangec) {
                 // Do something when the object is within range (x, y) to (x, y) for centre
                 telemetry.addData("Object is in the centre", "");
-            } else if (x <= xMaxRangel && x >= xMinRangel) {
+            } else if //(x <= xMaxRangel && x >= xMinRangel)
+            (detectionBool < 1) {
                 // Do something when the object is within range (x, y) to (x, y) for left
                 telemetry.addData("Object is in the left", "");
+            } else {
+                telemetry.addData("false", "");
+                telemetry.update();
             }
-
         }
     }
 }
