@@ -47,13 +47,7 @@ public class ODCM extends LinearOpMode {
                 //telemetryTfodmain();
                 // Push telemetry to the Driver Station.
                 telemetry.update();
-               /* if (gamepad1.dpad_down) {
-                    // Temporarily stop the streaming session.
-                    myVisionPortal.stopStreaming();
-                } else if (gamepad1.dpad_up) {
-                    // Resume the streaming session if previously stopped.
-                    myVisionPortal.resumeStreaming();
-                }*/
+
                 // Share the CPU.
                 sleep(30);
             }
