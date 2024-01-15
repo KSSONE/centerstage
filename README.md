@@ -92,7 +92,7 @@ The readme.md file located in the [/TeamCode/src/main/java/org/firstinspires/ftc
 * Fixes the automatic TeleOp preselection feature (was broken in 8.2)
 * Fixes a bug where passing an integer number such as 123 to the Telemetry.addData block that takes a number shows up as 123.0 in the telemetry.
 * Fixes OnBotJava autocomplete issues:
-  * Autocomplete would incorrectly provide values for the current class when autocompleting a local variable
+  * Autocomplete would incorrectly provide org.firstinspires.ftc.teamcode.TeleOp.sampleTeleOp.values for the current class when autocompleting a local variable
   * `hardwareMap` autocomplete would incorrectly include lambda class entries
 * Fixes OnBotJava not automatically importing classes.
 * Fixes OnBotJava tabs failing to close when their file is deleted.
@@ -133,7 +133,7 @@ The readme.md file located in the [/TeamCode/src/main/java/org/firstinspires/ftc
 * Related documentation for associated technologies can be found at
     * [AprilTag Introduction](https://ftc-docs.firstinspires.org/apriltag-intro)
     * [AprilTag SDK Guide](https://ftc-docs.firstinspires.org/apriltag-sdk)
-    * [AprilTag Detection Values](https://ftc-docs.firstinspires.org/apriltag-detection-values)
+    * [AprilTag Detection Values](https://ftc-docs.firstinspires.org/apriltag-detection-org.firstinspires.ftc.teamcode.TeleOp.sampleTeleOp.values)
     * [AprilTag Test Images](https://ftc-docs.firstinspires.org/apriltag-test-images)
     * [Camera Calibration](https://ftc-docs.firstinspires.org/camera-calibration)
 * Adds Driver Station support for Logitech Dual Action and Sony PS5 DualSense gamepads.
@@ -205,7 +205,7 @@ This is a bug fix only release to address the following four issues.
     robot. It will account for this, and give you your orientation in a Robot Coordinate System,
     instead of a special coordinate system for the REV Hub. As a result, your pitch and yaw will be
     0 when your *robot* is level, instead of when the REV Hub is level, which will result in much
-    more reliable orientation angle values for most mounting orientations.
+    more reliable orientation angle org.firstinspires.ftc.teamcode.TeleOp.sampleTeleOp.values for most mounting orientations.
   * Because of the new robot-centric coordinate system, the pitch and roll angles returned by the
     `IMU` interface will be different from the ones returned by the `BNO055IMU` interface. When you are
     migrating your code, pay careful attention to the documentation.
@@ -299,7 +299,7 @@ This is a bug fix only release to address the following four issues.
 * Allows SPARKmini motor controllers to react more quickly to speed changes.
 * Hides the version number of incorrectly installed sister app (i.e. DS installed on RC device or vice-versa) on inspection screen.
 * Adds support for allowing the user to edit the comment for the runOpMode block.
-* Adds parameterDefaultValues field to @ExportToBlocks. This provides the ability for a java method with an @ExportToBlocks annotation to specify default values for method parameters when it is shown in the block editor.
+* Adds parameterDefaultValues field to @ExportToBlocks. This provides the ability for a java method with an @ExportToBlocks annotation to specify default org.firstinspires.ftc.teamcode.TeleOp.sampleTeleOp.values for method parameters when it is shown in the block editor.
 * Make LinearOpMode blocks more readable. The opmode name is displayed on the runOpMode block, but not on the other LinearOpMode blocks.
 * Added support to TensorFlow Object Detection for using a different frame generator, instead of Vuforia.
   Using Vuforia to pass the camera frame to TFOD is still supported.
@@ -456,7 +456,7 @@ This is a bug fix only release to address the following four issues.
 * Makes the scan button on the configuration screen update the list of Expansion Hubs connected via RS-485
     * Fixes [SkyStone issue #143](https://github.com/FIRST-Tech-Challenge/SkyStone/issues/143)
 * Improves web interface compatibility with older browser and Android System WebView versions.
-* Fixes issue in UVC driver where some cameras (e.g. certain MS Lifecams) which reported frame intervals as rounded rather than truncated values (e.g. `666667*100ns` instead of `666666*100ns` for 15FPS) would fail to start streaming.
+* Fixes issue in UVC driver where some cameras (e.g. certain MS Lifecams) which reported frame intervals as rounded rather than truncated org.firstinspires.ftc.teamcode.TeleOp.sampleTeleOp.values (e.g. `666667*100ns` instead of `666666*100ns` for 15FPS) would fail to start streaming.
 * Adds support in UVC driver for virtual PTZ control
 * Adds support in UVC driver for gain (ISO) control
 * Adds support in UVC driver for enabling/disable AE priority. This setting provides a means to tell the camera firmware either
@@ -479,17 +479,17 @@ This is a bug fix only release to address the following four issues.
 * Android Studio users need to be connected to the Internet the first time they build the app (in order to download needed packages for the build).
 * Version 5.5 was a moderately large off-season, August 2020, drop.  It's worth reviewing those release notes below also.
 * Version 5.5 and greater will not work on older Android 4.x and 5.x phones.  Users must upgrade to an approved Android 6.x device or newer.
-* The default PIDF values for REV motors have been reverted to the default PID values that were used in the 2018-2019 season
-    * This change was made because the 2018-2019 values turned out to work better for many mechanisms
+* The default PIDF org.firstinspires.ftc.teamcode.TeleOp.sampleTeleOp.values for REV motors have been reverted to the default PID org.firstinspires.ftc.teamcode.TeleOp.sampleTeleOp.values that were used in the 2018-2019 season
+    * This change was made because the 2018-2019 org.firstinspires.ftc.teamcode.TeleOp.sampleTeleOp.values turned out to work better for many mechanisms
     * This brings the behavior of the REV motors in line with the behavior of all other motors
-    * If you prefer the 2019-2020 season's behavior for REV motors, here are the PIDF values that were in place, so that you can manually set them in your OpModes:
+    * If you prefer the 2019-2020 season's behavior for REV motors, here are the PIDF org.firstinspires.ftc.teamcode.TeleOp.sampleTeleOp.values that were in place, so that you can manually set them in your OpModes:
       <br>
       **HD Hex motors (all gearboxes):**
-      Velocity PIDF values: `P = 1.17`, `I = 0.117`, `F = 11.7`
-      Position PIDF values: `P = 5.0`
+      Velocity PIDF org.firstinspires.ftc.teamcode.TeleOp.sampleTeleOp.values: `P = 1.17`, `I = 0.117`, `F = 11.7`
+      Position PIDF org.firstinspires.ftc.teamcode.TeleOp.sampleTeleOp.values: `P = 5.0`
       **Core Hex motor:**
-      Velocity PIDF values: `P = 4.96`, `I = 0.496`, `F = 49.6`
-      Position PIDF values: `P = 5.0`
+      Velocity PIDF org.firstinspires.ftc.teamcode.TeleOp.sampleTeleOp.values: `P = 4.96`, `I = 0.496`, `F = 49.6`
+      Position PIDF org.firstinspires.ftc.teamcode.TeleOp.sampleTeleOp.values: `P = 5.0`
 
 ### New features
 * Includes TensorFlow inference model and sample OpModes to detect Ultimate Goal Starter Stacks (four rings vs single ring stack).
@@ -500,12 +500,12 @@ This is a bug fix only release to address the following four issues.
 ### Enhancements
 * Adds setGain() and getGain() methods to the NormalizedColorSensor interface
     * By setting the gain of a color sensor, you can adjust for different lighting conditions.
-      For example, if you detect lower color values than expected, you can increase the gain.
+      For example, if you detect lower color org.firstinspires.ftc.teamcode.TeleOp.sampleTeleOp.values than expected, you can increase the gain.
     * The gain value is only applied to the argb() and getNormalizedColors() methods, not to the raw color methods.
       The getNormalizedColors() method is recommended for ease-of-use and clarity, since argb() has to be converted.
     * Updates SensorColor Java sample to demonstrate gain usage
 * Merges SensorREVColorDistance Java sample into SensorColor Java sample, which showcases best practices for all color sensors
-* Improves retrieving values from the REV Color Sensor V3
+* Improves retrieving org.firstinspires.ftc.teamcode.TeleOp.sampleTeleOp.values from the REV Color Sensor V3
     * Updates the normalization calculation of the RGB channels
     * Improves the calculation of the alpha channel (can be used as an overall brightness indicator)
     * Fixes the default sensor resolution, which caused issues with bright environments
@@ -693,7 +693,7 @@ Version 5.5 requires Android Studio 4.0 or later.
     * `BulkCachingMode.OFF` (default): All hardware calls operate as usual. Bulk data can read through `LynxModule#getBulkData()` and processed manually.
     * `BulkCachingMode.AUTO`: Applicable hardware calls are served from a bulk read cache that is cleared/refreshed automatically to ensure identical commands don't hit the same cache. The cache can also be cleared manually with `LynxModule#clearBulkCache()`, although this is not recommended.
     * (advanced users) `BulkCachingMode.MANUAL`: Same as `BulkCachingMode.AUTO` except the cache is never cleared automatically. To avoid getting stale data, the cache must be manually cleared at the beginning of each loop body or as the user deems appropriate.
-* Removes PIDF Annotation values added in Rev 5.3 (to AndyMark, goBILDA and TETRIX motor configurations).
+* Removes PIDF Annotation org.firstinspires.ftc.teamcode.TeleOp.sampleTeleOp.values added in Rev 5.3 (to AndyMark, goBILDA and TETRIX motor configurations).
   * The new motor types will still be available but their Default control behavior will revert back to Rev 5.2
 * Adds new `ConceptMotorBulkRead` sample Opmode to demonstrate and compare Motor Bulk-Read modes for reducing I/O latencies.
 
@@ -711,13 +711,13 @@ Version 5.5 requires Android Studio 4.0 or later.
     * A warning is shown if a user selects a TFOD sample, but their device is not compatible
     * Warning messages in a Blocks OpMode are now visible by default.
 * Adds goBILDA 5201 and 5202 motors to Robot Configurator
-* Adds PIDF Annotation values to AndyMark, goBILDA and TETRIX motor configurations.
+* Adds PIDF Annotation org.firstinspires.ftc.teamcode.TeleOp.sampleTeleOp.values to AndyMark, goBILDA and TETRIX motor configurations.
     This has the effect of causing the RUN_USING_ENCODERS and RUN_TO_POSITION modes to use
     PIDF vs PID closed loop control on these motors.  This should provide more responsive, yet stable, speed control.
     PIDF adds Feedforward control to the basic PID control loop.
     Feedforward is useful when controlling a motor's speed because it "anticipates" how much the control voltage
     must change to achieve a new speed set-point, rather than requiring the integrated error to change sufficiently.
-    The PIDF values were chosen to provide responsive, yet stable, speed control on a lightly loaded motor.
+    The PIDF org.firstinspires.ftc.teamcode.TeleOp.sampleTeleOp.values were chosen to provide responsive, yet stable, speed control on a lightly loaded motor.
     The more heavily a motor is loaded (drag or friction), the more noticable the PIDF improvement will be.
 * Fixes startup crash on Android 10
 * Fixes [ftc_app issue #712](https://github.com/ftctechnh/ftc_app/issues/712) (thanks to FROGbots-4634)
@@ -932,7 +932,7 @@ Changes include:
      - Improvement in Blocks tool to handle corrupt OpMode files.
      - Autonomous OpModes should no longer get switched back to tele-op after re-opening them to be edited.
      - The system can now detect type mismatches during runtime and alert the user with a message on the Driver Station.
- * Updated javadoc documentation for setPower() method to reflect correct range of values (-1 to +1).
+ * Updated javadoc documentation for setPower() method to reflect correct range of org.firstinspires.ftc.teamcode.TeleOp.sampleTeleOp.values (-1 to +1).
  * Modified VuforiaLocalizerImpl to allow for user rendering of frames
      - Added a user-overrideable onRenderFrame() method which gets called by the class's renderFrame() method.
 
@@ -1318,14 +1318,14 @@ Changes include:
 
 ## Release 16.02.09
 
- * Improved battery checker feature so that voltage values get refreshed regularly (every 250 msec) on Driver Station (DS) user interface.
+ * Improved battery checker feature so that voltage org.firstinspires.ftc.teamcode.TeleOp.sampleTeleOp.values get refreshed regularly (every 250 msec) on Driver Station (DS) user interface.
  * Improved software so that Robot Controller (RC) is much more resilient and “self-healing” to USB disconnects:
     - If user attempts to start/restart RC with one or more module missing, it will display a warning but still start up.
     - When running an OpMode, if one or more modules gets disconnected, the RC & DS will display warnings,and robot will keep on working in spite of the missing module(s).
     - If a disconnected module gets physically reconnected the RC will auto detect the module and the user will regain control of the recently connected module.
     - Warning messages are more helpful (identifies the type of module that’s missing plus its USB serial number).
  * Code changes to fix the null gamepad reference when users try to reference the gamepads in the init() portion of their OpMode.
- * NXT light sensor output is now properly scaled.  Note that teams might have to readjust their light threshold values in their OpModes.
+ * NXT light sensor output is now properly scaled.  Note that teams might have to readjust their light threshold org.firstinspires.ftc.teamcode.TeleOp.sampleTeleOp.values in their OpModes.
  * On DS user interface, gamepad icon for a driver will disappear if the matching gamepad is disconnected or if that gamepad gets designated as a different driver.
  * Robot Protocol (ROBOCOL) version number info is displayed in About screen on RC and DS apps.
  * Incorporated a display filter on pairing screen to filter out devices that don’t use the “<TEAM NUMBER>-“ format. This filter can be turned off to show all Wi-Fi Direct devices.

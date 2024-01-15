@@ -84,8 +84,8 @@ public class sampleTest extends LinearOpMode {
         telemetry.update();
         while (opModeIsActive()) {
             mechanumDrive();
-            claw();
-            limitSwitch();
+            //claw();
+            //limitSwitch();
             telemetry.addData("Slide1 Speed: ", slide1.getVelocity());
             telemetry.addData("Slide2 Speed: ", slide2.getVelocity());
             telemetry.addData("Claw Position: ", claw.getPosition());
@@ -112,7 +112,7 @@ public class sampleTest extends LinearOpMode {
                 slide1.setVelocity(slideVelocity);
                 slide2.setVelocity(slideVelocity);
             }
-            if (manualAuto) {
+            /*if (manualAuto) {
                 slideAuto();
             }
             else if (!manualAuto){
@@ -125,7 +125,7 @@ public class sampleTest extends LinearOpMode {
             else if ((gamepad1.left_bumper) && (!manualAuto) && (timeSinceToggleSlide.milliseconds() > 300)) {
                 manualAuto = true;
                 timeSinceToggleSlide.reset();
-            }
+            }*/
         }
     }
     private void mechanumDrive() {
@@ -153,7 +153,7 @@ public class sampleTest extends LinearOpMode {
         }
          */
     }
-    private void slideManual() {
+    /*private void slideManual() {
         //slide
         if (gamepad2.left_bumper && ((slide1.getCurrentPosition() <= maxSlideEncoderTicks) && (slide2.getCurrentPosition() <= maxSlideEncoderTicks))) {
             slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -185,7 +185,7 @@ public class sampleTest extends LinearOpMode {
             timeSinceToggleClaw.reset();
             clawOutput = "open";
         }
-         */
+
     }
     private void slideAuto(){
         if (gamepad1.dpad_up) {
@@ -268,7 +268,7 @@ public class sampleTest extends LinearOpMode {
             armMotor.setPower(0.15);
         }
     }
-    */
+
     private void claw(){
         if ((gamepad1.b || gamepad2.a) && (clawBoolean && timeSinceToggleClaw.milliseconds() > 300)) {
             claw.setPosition(.33);
@@ -313,5 +313,4 @@ public class sampleTest extends LinearOpMode {
         else if (slideLimitSwitch.getState() == true){
             String limitSwitchOutput = "no";
         }
-    }
-}
+    }*/

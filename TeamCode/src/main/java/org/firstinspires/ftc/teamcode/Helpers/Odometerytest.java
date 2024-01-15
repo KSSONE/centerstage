@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode.Helpers;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+@Autonomous
 public class Odometerytest extends LinearOpMode {
 
 
@@ -22,6 +24,7 @@ public class Odometerytest extends LinearOpMode {
 
 
     // Initialize encoder objects for each motor
+
 
     @Override
     public void runOpMode() {
