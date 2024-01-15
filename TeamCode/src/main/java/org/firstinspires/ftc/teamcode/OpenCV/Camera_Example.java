@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class Camera_Example extends LinearOpMode
 {
 
-    DcMotor motor;
+    private DcMotor frontLeft, frontRight, rearLeft, rearRight;
     OpenCvCamera camera;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
 
@@ -51,11 +51,16 @@ public class Camera_Example extends LinearOpMode
     @Override
     public void runOpMode()
     {
-        motor  = hardwareMap.get(DcMotor.class, "motor");
+
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);
 
+
+        frontLeft = hardwareMap.dcMotor.get("frontLeft");
+        frontRight = hardwareMap.dcMotor.get("frontRight");
+        rearLeft = hardwareMap.dcMotor.get("rearLeft");
+        rearRight = hardwareMap.dcMotor.get("rearRight");
 
         camera.setPipeline(aprilTagDetectionPipeline);
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
@@ -178,7 +183,10 @@ public class Camera_Example extends LinearOpMode
         if (tagOfInterest != null) {
             if (tagOfInterest.id == left) {
                 if (detection.pose.z * FEET_PER_METER <= 1) {
-                    motor.setPower(0);
+                    frontLeft.setPower(0.5);
+                    frontRight.setPower(0.5);
+                    rearLeft.setPower(0.5);
+                    rearLeft.setPower(0.5);
                 } else if (detection.pose.z * FEET_PER_METER >= 3) {
                     motor.setPower(0.5);
                 }
