@@ -11,6 +11,7 @@ public class Movement extends LinearOpMode {
     DcMotorEx rightFront, leftRear, rightRear, leftFront;
     @Override
     public void runOpMode(){
+
         rightFront = hardwareMap.get(DcMotorEx.class,"right_front");
         rightFront.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

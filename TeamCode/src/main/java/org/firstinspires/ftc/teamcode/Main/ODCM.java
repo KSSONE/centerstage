@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Helpers;
+package org.firstinspires.ftc.teamcode.Main;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -10,7 +10,7 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
-@TeleOp(name = "ODCM (Blocks to Java)")
+@TeleOp(name = "FinalAuto")
 
 public class ODCM extends LinearOpMode {
 
