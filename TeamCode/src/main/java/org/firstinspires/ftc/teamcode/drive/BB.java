@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.drive;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -24,13 +23,13 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 @Config
 @Autonomous(group = "drive")
 public class BB extends LinearOpMode {
-    public static double DISTANCE = 30; // in
+    // in
 
     @Override
     public void runOpMode() throws InterruptedException {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        Pose2d startPose = new Pose2d(-DISTANCE / 2, -DISTANCE / 2, 0);
+        Pose2d startPose = new Pose2d(0, 0, 0);
 
         drive.setPoseEstimate(startPose);
 
@@ -42,7 +41,7 @@ public class BB extends LinearOpMode {
             TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
                     .forward(26)
                     .turn(Math.toRadians(90))
-                    //.forward(76)
+                    .forward(76)
                     .build();
             drive.followTrajectorySequence(trajSeq);
             sleep(30000);

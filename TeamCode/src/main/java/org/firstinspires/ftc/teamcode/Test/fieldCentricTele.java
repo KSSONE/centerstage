@@ -76,10 +76,10 @@ public class fieldCentricTele extends LinearOpMode {
             double frontRightPower = (rotY - rotX - rx) / denominator;
             double backRightPower = (rotY + rotX - rx) / denominator;
 
-            leftFront.setPower(frontLeftPower);
-            leftRear.setPower(backLeftPower);
-            rightFront.setPower(frontRightPower);
-            rightRear.setPower(backRightPower);
+            leftFront.setPower(frontLeftPower*0.75);
+            leftRear.setPower(backLeftPower*0.75);
+            rightFront.setPower(frontRightPower*0.75);
+            rightRear.setPower(backRightPower*0.75);
         }
 
 

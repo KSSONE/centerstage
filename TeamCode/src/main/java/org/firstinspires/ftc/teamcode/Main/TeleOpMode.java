@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.Main;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -15,9 +17,25 @@ public class TeleOpMode extends LinearOpMode {
 
     Servo claw;
     DcMotorEx intake;
-    DcMotorEx rightFront, leftRear, rightRear, leftFront;
+    DcMotorEx rightFront, leftRear, rightRear, leftFront, LL, LR;
+
+    public DigitalChannel slideLimitSwitch;
+    boolean manual= false;
 
     public void runOpMode() throws InterruptedException {
+
+        LL = hardwareMap.get(DcMotorEx.class, "LL");
+        slideLimitSwitch = hardwareMap.get(DigitalChannel.class, "LS");
+
+        LL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        LL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        LL.setDirection(DcMotor.Direction.REVERSE);
+
+
+        LR = hardwareMap.get(DcMotorEx.class, "LR");
+        LR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        LR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        LR.setDirection(DcMotor.Direction.FORWARD);
         // Declare our servo
 
         claw = hardwareMap.get(Servo.class,"claw");
@@ -48,7 +66,6 @@ public class TeleOpMode extends LinearOpMode {
         leftRear.setDirection(DcMotorEx.Direction.FORWARD);
         rightRear.setDirection(DcMotorEx.Direction.FORWARD);
 
-
         // Retrieve the IMU from the hardware map
         IMU imu = hardwareMap.get(IMU.class, "imu");
         // Adjust the orientation parameters to match your robot
@@ -57,6 +74,7 @@ public class TeleOpMode extends LinearOpMode {
                 RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
         // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
         imu.initialize(parameters);
+
 
         waitForStart();
 
@@ -95,6 +113,7 @@ public class TeleOpMode extends LinearOpMode {
             leftRear.setPower(backLeftPower);
             rightFront.setPower(frontRightPower);
             rightRear.setPower(backRightPower);
+            Linearslide();
             Intake();
             claw();
         }
@@ -129,9 +148,53 @@ public class TeleOpMode extends LinearOpMode {
             intake.setPower(0);
             telemetry.addData("Intake:", "Stopped");
         }
-        telemetry.addData("Servo Position", "%.2f", claw.getPosition());
 
         telemetry.update();
+    }
+    public void Linearslide() {
+        if (gamepad1.x){
+            if (manual == false){
+                manual = true;
+            }
+            else if (manual){
+                manual = false;
+            }
+            sleep (150);
+        }
+        if (slideLimitSwitch.getState()) {
+            LL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            LL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            LR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            LR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+        if (gamepad1.y && !manual){
+            LL.setTargetPosition(3500);
+            LR.setTargetPosition(3500);
+            LL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            LR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            LR.setPower(0.7);
+            LL.setPower(0.7);
+        }
+        else if (gamepad1.a && !manual){
+            LL.setTargetPosition(-5);
+            LR.setTargetPosition(-5);
+            LL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            LR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            LR.setPower(0.7);
+            LL.setPower(0.7);
+        }
+        else if (gamepad1.y && manual && LL.getCurrentPosition() < 3600){
+            LR.setPower(0.7);
+            LL.setPower(0.7);
+        }
+        else if (gamepad1.a && manual && !slideLimitSwitch.getState()){
+            LR.setPower(-0.7);
+            LL.setPower(-0.7);
+        }
+        else {
+            LR.setPower(0);
+            LL.setPower(0);
+        }
     }
 }
 

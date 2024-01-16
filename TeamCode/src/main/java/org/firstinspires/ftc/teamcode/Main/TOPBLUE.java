@@ -1,18 +1,21 @@
 package org.firstinspires.ftc.teamcode.Main;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import java.util.List;
 import org.firstinspires.ftc.robotcore.external.JavaUtil;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
+import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
-@TeleOp(name = "FinalAuto")
+@Autonomous(name = "TOPBLUE")
 
-public class ODCM extends LinearOpMode {
+public class TOPBLUE extends LinearOpMode {
 
     boolean USE_WEBCAM;
     TfodProcessor myTfodProcessor;
@@ -24,41 +27,63 @@ public class ODCM extends LinearOpMode {
     @Override
     public void runOpMode() {
 
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        // This 2023-2024 OpMode illustrates the basics of TensorFlow Object Detection, using
-        // a custom TFLite object detection model.
+        Pose2d startPose = new Pose2d(0, 74, 0);
+
+        drive.setPoseEstimate(startPose);
+
+
+
         USE_WEBCAM = true;
-        // Initialize TFOD before waitForStart.
+
         initTfod();
-        // Wait for the match to begin.
         telemetry.addData("DS preview on/off", "3 dots, Camera Stream");
         telemetry.addData(">", "Touch Play to start OpMode");
         telemetry.update();
-        // Set the zoom.
+
 
         waitForStart();
         if (opModeIsActive()) {
-            // Put run blocks here.
             while (opModeIsActive()) {
-                // Put loop blocks here.
-                //detection();
-
-                int time= 0;
+                sleep(3000); // Tensorflow
                 int location = 3000;
                 telemetryTfod();
                 location = telemetryTfodmain();
-                while (time < 2){
-                    telemetryTfod();
-                    location = telemetryTfodmain();
-                    time = time + 1;
-                    sleep(30);
-                }
                 telemetry.addData("Location", location);
-                //telemetryTfodmain();
-                // Push telemetry to the Driver Station.
-                // Share the CPU.
+                telemetry.update();
+                //Movement setup
+                TrajectorySequence to_back = drive.trajectorySequenceBuilder(startPose)
+                        .forward(26)
+                        .turn(Math.toRadians(-90))
+                        .back(26)
+                        .build();
+
+                TrajectorySequence right = drive.trajectorySequenceBuilder(to_back.end())
+                        .strafeLeft(6)
+                        .build();
+                TrajectorySequence center = drive.trajectorySequenceBuilder(to_back.end())
+                        .strafeRight(1)
+                        .build();
+                TrajectorySequence left = drive.trajectorySequenceBuilder(to_back.end())
+                        .strafeRight(7)
+                        .build();
+
+
+                drive.followTrajectorySequence(to_back);
+                if (location == 1){
+                    drive.followTrajectorySequence(left);
+                }
+                else if (location == 2){
+                    drive.followTrajectorySequence(center);
+
+                } else if (location == 3){
+                    drive.followTrajectorySequence(right);
+                }
                 sleep(300000);
+
             }
+
         }
     }
 
