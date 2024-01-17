@@ -59,12 +59,17 @@ public class TOPBLUE extends LinearOpMode {
                         .back(26)
                         .build();
 
+
                 TrajectorySequence right = drive.trajectorySequenceBuilder(to_back.end())
                         .strafeLeft(6)
                         .build();
+
+
                 TrajectorySequence center = drive.trajectorySequenceBuilder(to_back.end())
                         .strafeRight(1)
                         .build();
+
+
                 TrajectorySequence left = drive.trajectorySequenceBuilder(to_back.end())
                         .strafeRight(7)
                         .build();
@@ -170,7 +175,7 @@ public class TOPBLUE extends LinearOpMode {
         if (detectionBool != 0) {
             for (Recognition recognition : myTfodRecognitions) {
 
-                float x = x = (recognition.getLeft() + recognition.getRight()) / 2;
+                float x = (recognition.getLeft() + recognition.getRight()) / 2;
 
                 // Put ranges for x and y coordinates
                 double xMaxRangec = 580; // Your minimum x value
@@ -193,9 +198,6 @@ public class TOPBLUE extends LinearOpMode {
                     telemetry.addData("X:", x);
                     telemetry.update();
                 }
-
-
-
             }
         } else {
             position = 3;
@@ -203,7 +205,6 @@ public class TOPBLUE extends LinearOpMode {
             telemetry.update();
 
         }
-
         return position;
     }
 }
