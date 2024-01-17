@@ -116,6 +116,7 @@ public class TeleOpMode extends LinearOpMode {
             Linearslide();
             Intake();
             claw();
+            telemetry.update();
         }
     }
 
@@ -133,13 +134,13 @@ public class TeleOpMode extends LinearOpMode {
         }
         telemetry.addData("Servo Position", "%.2f", claw.getPosition());
 
-        telemetry.update();
+
     }
 
     public void Intake() {
         if (gamepad1.right_bumper) {
-            intake.setPower(1);
-            telemetry.addData("Intake:", "Forward");
+                intake.setPower(1);
+                telemetry.addData("Intake:", "Forward");
         }
         else if (gamepad1.left_bumper){
             intake.setPower(-1);
@@ -149,7 +150,7 @@ public class TeleOpMode extends LinearOpMode {
             telemetry.addData("Intake:", "Stopped");
         }
 
-        telemetry.update();
+
     }
     public void Linearslide() {
         if (gamepad1.x){
