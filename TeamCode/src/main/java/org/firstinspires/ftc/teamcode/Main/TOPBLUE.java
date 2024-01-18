@@ -105,7 +105,7 @@ public class TOPBLUE extends LinearOpMode {
         // Set the name of the file where the model can be found.
         myTfodProcessorBuilder.setModelFileName("Blue_Block.tflite");
         // Set the full ordered list of labels the model is trained to recognize.
-        myTfodProcessorBuilder.setModelLabels(JavaUtil.createListWith("Blue Prop"));
+        myTfodProcessorBuilder.setModelLabels(JavaUtil.createListWith("Blue Block"));
         // Set the aspect ratio for the images used when the model was created.
         myTfodProcessorBuilder.setModelAspectRatio(16 / 9);
         // Create a TfodProcessor by calling build.
