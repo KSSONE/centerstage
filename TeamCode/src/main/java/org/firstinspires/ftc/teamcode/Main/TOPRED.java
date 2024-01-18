@@ -71,14 +71,31 @@ public class TOPRED extends LinearOpMode {
 
 
                 drive.followTrajectorySequence(to_back);
+                Pose2d poseEstimate = drive.getPoseEstimate();
+                telemetry.addData("x", poseEstimate.getX());
+                telemetry.addData("y", poseEstimate.getY());
+                telemetry.addData("heading", poseEstimate.getHeading());
+                telemetry.update();
                 if (location == 1){
                     drive.followTrajectorySequence(left);
+                    telemetry.addData("x", poseEstimate.getX());
+                    telemetry.addData("y", poseEstimate.getY());
+                    telemetry.addData("heading", poseEstimate.getHeading());
+                    telemetry.update();
                 }
                 else if (location == 2){
                     drive.followTrajectorySequence(center);
+                    telemetry.addData("x", poseEstimate.getX());
+                    telemetry.addData("y", poseEstimate.getY());
+                    telemetry.addData("heading", poseEstimate.getHeading());
+                    telemetry.update();
 
                 } else if (location == 3){
                     drive.followTrajectorySequence(right);
+                    telemetry.addData("x", poseEstimate.getX());
+                    telemetry.addData("y", poseEstimate.getY());
+                    telemetry.addData("heading", poseEstimate.getHeading());
+                    telemetry.update();
                 }
                 sleep(300000);
 
@@ -206,4 +223,5 @@ public class TOPRED extends LinearOpMode {
 
         return position;
     }
+
 }
