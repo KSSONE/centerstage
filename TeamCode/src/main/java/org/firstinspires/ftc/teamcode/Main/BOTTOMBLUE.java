@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
-@Autonomous(name = "TOPBLUE")
+@Autonomous(name = "BOTTOMBLUE")
 
 public class BOTTOMBLUE extends LinearOpMode {
 
