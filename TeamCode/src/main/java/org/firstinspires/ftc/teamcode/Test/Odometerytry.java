@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-@Autonomous
+//@Autonomous
 public class Odometerytry extends LinearOpMode {
     DcMotorEx rightFront, leftRear, rightRear, leftFront, rightEn, leftEn, frontEn;
 

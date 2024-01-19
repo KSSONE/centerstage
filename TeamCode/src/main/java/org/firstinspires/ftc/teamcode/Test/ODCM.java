@@ -10,7 +10,7 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
-@TeleOp(name = "ODCM (Blocks to Java)")
+//@TeleOp(name = "ODCM (Blocks to Java)")
 public class ODCM extends LinearOpMode {
 
     boolean USE_WEBCAM;
@@ -63,9 +63,9 @@ public class ODCM extends LinearOpMode {
         // First, create a TfodProcessor.Builder.
         myTfodProcessorBuilder = new TfodProcessor.Builder();
         // Set the name of the file where the model can be found.
-        myTfodProcessorBuilder.setModelFileName("Test.tflite");
+        myTfodProcessorBuilder.setModelFileName("Blue_Block.tflite");
         // Set the full ordered list of labels the model is trained to recognize.
-        myTfodProcessorBuilder.setModelLabels(JavaUtil.createListWith("red Toy"));
+        myTfodProcessorBuilder.setModelLabels(JavaUtil.createListWith("Blue Block"));
         // Set the aspect ratio for the images used when the model was created.
         myTfodProcessorBuilder.setModelAspectRatio(16 / 9);
         // Create a TfodProcessor by calling build.

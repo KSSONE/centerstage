@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 
-@Autonomous(name="movi")
+//@Autonomous(name="movi")
 public class Movement extends LinearOpMode {
     DcMotorEx rightFront, leftRear, rightRear, leftFront;
     @Override

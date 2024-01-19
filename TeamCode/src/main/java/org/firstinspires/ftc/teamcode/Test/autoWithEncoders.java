@@ -12,7 +12,7 @@ import org.openftc.easyopencv.OpenCvInternalCamera;
 import java.util.Base64;
 
 
-@Autonomous
+
 public class  autoWithEncoders extends LinearOpMode {
     
     private DcMotor frontLeft, frontRight, rearLeft, rearRight;

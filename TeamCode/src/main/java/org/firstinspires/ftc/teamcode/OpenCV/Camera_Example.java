@@ -19,7 +19,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 
 import java.util.ArrayList;
 
-@TeleOp
+
 public class Camera_Example extends LinearOpMode
 {
 

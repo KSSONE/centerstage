@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@TeleOp(name = "Jovi's Tele")
+
 public class linearslide extends LinearOpMode {
     public DcMotorEx LL;
     public DcMotorEx LR;

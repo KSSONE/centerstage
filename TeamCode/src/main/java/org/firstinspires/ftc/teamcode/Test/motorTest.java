@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@Autonomous
+//@Autonomous
 public class motorTest extends LinearOpMode {
     DcMotorEx rightFront, leftRear, rightRear, leftfront;
 

@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.Range;
 
-@Autonomous(name = "PD Test")
+//@Autonomous(name = "PD Test")
 public class pdTest extends LinearOpMode {
 
     private DcMotorEx motorBackLeft;
