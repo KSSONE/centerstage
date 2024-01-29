@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode.Helpers;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 
@@ -10,6 +12,13 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 =======
 >>>>>>> parent of 5cd8ae4 (jovi code)
+=======
+<<<<<<< HEAD
+
+
+=======
+@Disabled
+>>>>>>> parent of eacff73 (.)
 @TeleOp
 
 public class Servoencode extends LinearOpMode {

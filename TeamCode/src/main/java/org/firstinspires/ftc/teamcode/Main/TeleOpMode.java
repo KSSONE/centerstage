@@ -15,22 +15,30 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 @TeleOp(name = "FinalTeleOp")
 public class TeleOpMode extends LinearOpMode {
 
-    Servo claw;
+    Servo claw, angle;
     DcMotorEx intake;
     DcMotorEx rightFront, leftRear, rightRear, leftFront, LL, LR;
 
+<<<<<<< HEAD
     public DigitalChannel slideLimitSwitch;
 <<<<<<< HEAD
     boolean manual = false;
 =======
     boolean manual= false;
 >>>>>>> parent of 5cd8ae4 (jovi code)
+=======
+    int open = 1;
+
+    public DigitalChannel slideLimitSwitch, slideLimitSwitch1;
+    boolean manual= false;
+    double pos = 0.41;
+>>>>>>> parent of eacff73 (.)
 
     public void runOpMode() throws InterruptedException {
 
+        slideLimitSwitch = hardwareMap.get(DigitalChannel.class, "LS1");
+        slideLimitSwitch1 = hardwareMap.get(DigitalChannel.class, "LS2");
         LL = hardwareMap.get(DcMotorEx.class, "LL");
-        slideLimitSwitch = hardwareMap.get(DigitalChannel.class, "LS");
-
         LL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         LL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         LL.setDirection(DcMotor.Direction.REVERSE);
@@ -46,7 +54,11 @@ public class TeleOpMode extends LinearOpMode {
         claw = hardwareMap.get(Servo.class, "claw");
 =======
         claw = hardwareMap.get(Servo.class,"claw");
+<<<<<<< HEAD
 >>>>>>> parent of 5cd8ae4 (jovi code)
+=======
+        angle = hardwareMap.servo.get("angle");
+>>>>>>> parent of eacff73 (.)
 
         // Declare our motors
 
@@ -72,7 +84,7 @@ public class TeleOpMode extends LinearOpMode {
         leftFront.setDirection(DcMotorEx.Direction.FORWARD);
         rightFront.setDirection(DcMotorEx.Direction.REVERSE);
         leftRear.setDirection(DcMotorEx.Direction.FORWARD);
-        rightRear.setDirection(DcMotorEx.Direction.FORWARD);
+        rightRear.setDirection(DcMotorEx.Direction.REVERSE);
 
         // Retrieve the IMU from the hardware map
         IMU imu = hardwareMap.get(IMU.class, "imu");
@@ -96,7 +108,7 @@ public class TeleOpMode extends LinearOpMode {
             // This button choice was made so that it is hard to hit on accident,
             // it can be freely changed based on preference.
             // The equivalent button is start on Xbox-style controllers.
-            if (gamepad1.options) {
+            if (gamepad1.back) {
                 imu.resetYaw();
             }
 
@@ -124,11 +136,13 @@ public class TeleOpMode extends LinearOpMode {
             Linearslide();
             Intake();
             claw();
+            angle();
             telemetry.update();
         }
     }
 
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 
@@ -140,6 +154,14 @@ public class TeleOpMode extends LinearOpMode {
             telemetry.addData("Claw Position", "Open");
 
 <<<<<<< HEAD
+=======
+
+
+
+
+    public void claw() {
+<<<<<<< HEAD
+>>>>>>> parent of eacff73 (.)
         if (gamepad2.a) {
             claw.setPosition(0.03);
             telemetry.addData("Claw Position", "Closes");
@@ -150,6 +172,7 @@ public class TeleOpMode extends LinearOpMode {
         }
         telemetry.addData("Servo Position", "%.2f", claw.getPosition());
 
+<<<<<<< HEAD
         if (gamepad1.b) {
             claw.setPosition(0.01);
             telemetry.addData("Claw Position", "Open");
@@ -175,7 +198,19 @@ public class TeleOpMode extends LinearOpMode {
         }
         telemetry.addData("Servo Position", "%.2f", claw.getPosition());
 >>>>>>> parent of 5cd8ae4 (jovi code)
+=======
+            if (gamepad1.b){
+                claw.setPosition(0.01);
+                telemetry.addData("Claw Position", "Open");
+            }
+            if (gamepad1.a){
+                claw.setPosition(0.03);
+                telemetry.addData("Claw Position", "Close");
+            }
+>>>>>>> 5cd8ae410786cfbc1f0e08f5ee04e97f8d06e9e7
+>>>>>>> parent of eacff73 (.)
 
+        telemetry.addData("Claw Position", "%.2f", claw.getPosition());
 
             } else if (gamepad1.b) {
                 claw.setPosition(0);
@@ -193,7 +228,17 @@ public class TeleOpMode extends LinearOpMode {
                 intake.setPower(1);
                 telemetry.addData("Intake:", "Forward");
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+            LL.setTargetPosition(50);
+            LR.setTargetPosition(50);
+            LL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            LR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            LR.setPower(.5);
+            LL.setPower(.5);
+>>>>>>> 5cd8ae410786cfbc1f0e08f5ee04e97f8d06e9e7
+>>>>>>> parent of eacff73 (.)
         }
         else if (gamepad1.left_bumper){
             intake.setPower(-1);
@@ -224,6 +269,7 @@ public class TeleOpMode extends LinearOpMode {
 =======
     }
     public void Linearslide() {
+        /*telemetry.addData("Manual",manual);
         if (gamepad1.x){
             if (manual == false){
                 manual = true;
@@ -232,6 +278,7 @@ public class TeleOpMode extends LinearOpMode {
 
 
         }
+<<<<<<< HEAD
         public void Linearslide() {
             if (gamepad1.x) {
                 if (manual == false) {
@@ -277,6 +324,9 @@ public class TeleOpMode extends LinearOpMode {
 
 =======
         if (slideLimitSwitch.getState()) {
+=======
+        if (slideLimitSwitch.getState() || slideLimitSwitch1.getState()) {
+>>>>>>> parent of eacff73 (.)
             LL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             LL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             LR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -302,14 +352,65 @@ public class TeleOpMode extends LinearOpMode {
             LR.setPower(0.7);
             LL.setPower(0.7);
         }
-        else if (gamepad1.a && manual && !slideLimitSwitch.getState()){
+        else if (gamepad1.a && manual && (!slideLimitSwitch.getState() || !!slideLimitSwitch1.getState())){
             LR.setPower(-0.7);
             LL.setPower(-0.7);
         }
         else {
             LR.setPower(0);
             LL.setPower(0);
+        }*/
+
+        if (slideLimitSwitch.getState() == false || slideLimitSwitch1.getState() == false) {
+            LL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            LL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            LR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            LR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
+            LL.setTargetPosition(5);
+            LR.setTargetPosition(5);
+            LL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            LR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            LR.setPower(.5);
+            LL.setPower(.5);
         }
+
+
+        if (gamepad1.dpad_up){
+            LL.setTargetPosition(2900);
+            LR.setTargetPosition(2900);
+            LL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            LR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            LR.setPower(.5);
+            LL.setPower(.5);
+        }
+        if (gamepad1.dpad_down) {
+            LL.setTargetPosition(-5);
+            LR.setTargetPosition(-5);
+            LL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            LR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            LR.setPower(.5);
+            LL.setPower(.5);
+            angle.setPosition(0.41);
+        }
+
+        telemetry.addData("Right Linear ", LR.getCurrentPosition());
+        telemetry.addData("Left Linear ", LL.getCurrentPosition());
+        telemetry.addData("LS", slideLimitSwitch1.getState());
+        telemetry.addData("LS1", slideLimitSwitch.getState());
+
+    }
+    public void angle(){
+        if (gamepad1.y){
+            angle.setPosition(0.41);
+        }
+        else if (gamepad1.x) {
+            angle.setPosition(0.31);
+        }
+
+        telemetry.addData("Servo angle Position", "%.2f", angle.getPosition());
+
     }
 }
 >>>>>>> parent of 5cd8ae4 (jovi code)

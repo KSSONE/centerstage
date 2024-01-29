@@ -1,15 +1,23 @@
 package org.firstinspires.ftc.teamcode.Helpers;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of eacff73 (.)
 <<<<<<< HEAD
 
 
 =======
+<<<<<<< HEAD
 >>>>>>> parent of 5cd8ae4 (jovi code)
+=======
+@Disabled
+>>>>>>> parent of eacff73 (.)
 @Autonomous
 
 public class Odometerytest extends LinearOpMode {

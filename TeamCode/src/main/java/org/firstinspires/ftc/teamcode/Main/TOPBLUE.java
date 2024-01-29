@@ -3,6 +3,11 @@ package org.firstinspires.ftc.teamcode.Main;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.Servo;
+
 import java.util.List;
 import org.firstinspires.ftc.robotcore.external.JavaUtil;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
@@ -17,6 +22,8 @@ import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
 public class TOPBLUE extends LinearOpMode {
 
+    Servo claw, angle;
+    DcMotorEx LL, LR;
     boolean USE_WEBCAM;
     TfodProcessor myTfodProcessor;
     VisionPortal myVisionPortal;
@@ -29,9 +36,25 @@ public class TOPBLUE extends LinearOpMode {
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        Pose2d startPose = new Pose2d(0, 74, 0);
+        Pose2d startPose = new Pose2d(128, 74, 180);
 
         drive.setPoseEstimate(startPose);
+
+
+        LL = hardwareMap.get(DcMotorEx.class, "LL");
+        LL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        LL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        LL.setDirection(DcMotor.Direction.REVERSE);
+
+
+        LR = hardwareMap.get(DcMotorEx.class, "LR");
+        LR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        LR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        LR.setDirection(DcMotor.Direction.FORWARD);
+        // Declare our servo
+
+        claw = hardwareMap.get(Servo.class,"claw");
+        angle = hardwareMap.servo.get("angle");
 
 
 
@@ -46,7 +69,7 @@ public class TOPBLUE extends LinearOpMode {
         waitForStart();
         if (opModeIsActive()) {
             while (opModeIsActive()) {
-                sleep(3000); // Tensorflow
+                sleep(4000); // Tensorflow
                 int location = 3000;
                 telemetryTfod();
                 location = telemetryTfodmain();
@@ -55,25 +78,18 @@ public class TOPBLUE extends LinearOpMode {
                 //Movement setup
                 TrajectorySequence to_back = drive.trajectorySequenceBuilder(startPose)
                         .forward(26)
-                        .turn(Math.toRadians(-90))
-                        .back(26)
+                        .turn(Math.toRadians(90))
+                        .forward(30)
                         .build();
-
-
                 TrajectorySequence right = drive.trajectorySequenceBuilder(to_back.end())
                         .strafeLeft(6)
                         .build();
-
-
                 TrajectorySequence center = drive.trajectorySequenceBuilder(to_back.end())
                         .strafeRight(1)
                         .build();
-
-
                 TrajectorySequence left = drive.trajectorySequenceBuilder(to_back.end())
                         .strafeRight(7)
                         .build();
-
 
                 drive.followTrajectorySequence(to_back);
                 if (location == 1){
@@ -105,7 +121,7 @@ public class TOPBLUE extends LinearOpMode {
         // Set the name of the file where the model can be found.
         myTfodProcessorBuilder.setModelFileName("Blue_Block.tflite");
         // Set the full ordered list of labels the model is trained to recognize.
-        myTfodProcessorBuilder.setModelLabels(JavaUtil.createListWith("Blue Prop"));
+        myTfodProcessorBuilder.setModelLabels(JavaUtil.createListWith("Blue Block"));
         // Set the aspect ratio for the images used when the model was created.
         myTfodProcessorBuilder.setModelAspectRatio(16 / 9);
         // Create a TfodProcessor by calling build.
@@ -175,7 +191,7 @@ public class TOPBLUE extends LinearOpMode {
         if (detectionBool != 0) {
             for (Recognition recognition : myTfodRecognitions) {
 
-                float x = (recognition.getLeft() + recognition.getRight()) / 2;
+                float x = x = (recognition.getLeft() + recognition.getRight()) / 2;
 
                 // Put ranges for x and y coordinates
                 double xMaxRangec = 580; // Your minimum x value
@@ -198,6 +214,9 @@ public class TOPBLUE extends LinearOpMode {
                     telemetry.addData("X:", x);
                     telemetry.update();
                 }
+
+
+
             }
         } else {
             position = 3;
@@ -205,6 +224,7 @@ public class TOPBLUE extends LinearOpMode {
             telemetry.update();
 
         }
+
         return position;
     }
 }
