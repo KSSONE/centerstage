@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Test;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import java.util.List;
@@ -63,9 +64,9 @@ public class ODCM extends LinearOpMode {
         // First, create a TfodProcessor.Builder.
         myTfodProcessorBuilder = new TfodProcessor.Builder();
         // Set the name of the file where the model can be found.
-        myTfodProcessorBuilder.setModelFileName("Test.tflite");
+        myTfodProcessorBuilder.setModelFileName("Blue_Block.tflite");
         // Set the full ordered list of labels the model is trained to recognize.
-        myTfodProcessorBuilder.setModelLabels(JavaUtil.createListWith("red Toy"));
+        myTfodProcessorBuilder.setModelLabels(JavaUtil.createListWith("Blue Block"));
         // Set the aspect ratio for the images used when the model was created.
         myTfodProcessorBuilder.setModelAspectRatio(16 / 9);
         // Create a TfodProcessor by calling build.
@@ -81,7 +82,7 @@ public class ODCM extends LinearOpMode {
         }
         // Add myTfodProcessor to the VisionPortal.Builder.
         myVisionPortalBuilder.addProcessor(myTfodProcessor);
-        // Create a VisionPortal by calling build.
+
         myVisionPortal = myVisionPortalBuilder.build();
     }
 

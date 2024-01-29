@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode.Test;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-
+@Disabled
 @Autonomous(name="movi")
 public class Movement extends LinearOpMode {
     DcMotorEx rightFront, leftRear, rightRear, leftFront;

@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Test;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -7,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
-
+@Disabled
 @TeleOp(name = "Jovi's Tele")
 public class linearslide extends LinearOpMode {
     public DcMotorEx LL;
@@ -27,7 +28,7 @@ public class linearslide extends LinearOpMode {
         LL.setDirection(DcMotor.Direction.FORWARD);
 
 
-        LR = hardwareMap.get(DcMotorEx.class, "RL");
+        LR = hardwareMap.get(DcMotorEx.class, "LR");
         LR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         LR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         LR.setDirection(DcMotor.Direction.REVERSE);
@@ -47,8 +48,8 @@ public class linearslide extends LinearOpMode {
                 LR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             }
             if (gamepad1.dpad_down && manual < 0){
-                LL.setTargetPosition(3500);
-                LR.setTargetPosition(3500);
+                LL.setTargetPosition(3000);
+                LR.setTargetPosition(3000);
                 LL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 LR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 LR.setPower(0.7);
