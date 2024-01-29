@@ -5,8 +5,11 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> parent of 5cd8ae4 (jovi code)
 @Autonomous
 
 public class Odometerytest extends LinearOpMode {

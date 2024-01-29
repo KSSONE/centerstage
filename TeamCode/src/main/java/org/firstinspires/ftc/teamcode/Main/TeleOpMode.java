@@ -20,7 +20,11 @@ public class TeleOpMode extends LinearOpMode {
     DcMotorEx rightFront, leftRear, rightRear, leftFront, LL, LR;
 
     public DigitalChannel slideLimitSwitch;
+<<<<<<< HEAD
     boolean manual = false;
+=======
+    boolean manual= false;
+>>>>>>> parent of 5cd8ae4 (jovi code)
 
     public void runOpMode() throws InterruptedException {
 
@@ -38,7 +42,11 @@ public class TeleOpMode extends LinearOpMode {
         LR.setDirection(DcMotor.Direction.FORWARD);
         // Declare our servo
 
+<<<<<<< HEAD
         claw = hardwareMap.get(Servo.class, "claw");
+=======
+        claw = hardwareMap.get(Servo.class,"claw");
+>>>>>>> parent of 5cd8ae4 (jovi code)
 
         // Declare our motors
 
@@ -121,8 +129,17 @@ public class TeleOpMode extends LinearOpMode {
     }
 
 
-    public void claw() {
+<<<<<<< HEAD
+=======
 
+
+>>>>>>> parent of 5cd8ae4 (jovi code)
+    public void claw() {
+        if (gamepad1.a) {
+            claw.setPosition(0.3);
+            telemetry.addData("Claw Position", "Open");
+
+<<<<<<< HEAD
         if (gamepad2.a) {
             claw.setPosition(0.03);
             telemetry.addData("Claw Position", "Closes");
@@ -151,6 +168,13 @@ public class TeleOpMode extends LinearOpMode {
             if (gamepad1.a) {
                 claw.setPosition(0.3);
                 telemetry.addData("Claw Position", "Open");
+=======
+        } else if (gamepad1.b) {
+            claw.setPosition(0);
+            telemetry.addData("Claw Position", "Closed");
+        }
+        telemetry.addData("Servo Position", "%.2f", claw.getPosition());
+>>>>>>> parent of 5cd8ae4 (jovi code)
 
 
             } else if (gamepad1.b) {
@@ -168,10 +192,22 @@ public class TeleOpMode extends LinearOpMode {
 
                 intake.setPower(1);
                 telemetry.addData("Intake:", "Forward");
+<<<<<<< HEAD
+=======
+        }
+        else if (gamepad1.left_bumper){
+            intake.setPower(-1);
+            telemetry.addData("Intake:", "Reverse");
+        }else{
+            intake.setPower(0);
+            telemetry.addData("Intake:", "Stopped");
+        }
+>>>>>>> parent of 5cd8ae4 (jovi code)
 
                 intake.setPower(1);
                 telemetry.addData("Intake:", "Forward");
 
+<<<<<<< HEAD
                 LL.setTargetPosition(50);
                 LR.setTargetPosition(50);
                 LL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -185,6 +221,13 @@ public class TeleOpMode extends LinearOpMode {
             } else {
                 intake.setPower(0);
                 telemetry.addData("Intake:", "Stopped");
+=======
+    }
+    public void Linearslide() {
+        if (gamepad1.x){
+            if (manual == false){
+                manual = true;
+>>>>>>> parent of 5cd8ae4 (jovi code)
             }
 
 
@@ -229,7 +272,46 @@ public class TeleOpMode extends LinearOpMode {
                 LL.setPower(0);
             }
         }
+<<<<<<< HEAD
     }
 
+=======
+        if (slideLimitSwitch.getState()) {
+            LL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            LL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            LR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            LR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+        if (gamepad1.y && !manual){
+            LL.setTargetPosition(3500);
+            LR.setTargetPosition(3500);
+            LL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            LR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            LR.setPower(0.7);
+            LL.setPower(0.7);
+        }
+        else if (gamepad1.a && !manual){
+            LL.setTargetPosition(-5);
+            LR.setTargetPosition(-5);
+            LL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            LR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            LR.setPower(0.7);
+            LL.setPower(0.7);
+        }
+        else if (gamepad1.y && manual && LL.getCurrentPosition() < 3600){
+            LR.setPower(0.7);
+            LL.setPower(0.7);
+        }
+        else if (gamepad1.a && manual && !slideLimitSwitch.getState()){
+            LR.setPower(-0.7);
+            LL.setPower(-0.7);
+        }
+        else {
+            LR.setPower(0);
+            LL.setPower(0);
+        }
+    }
+}
+>>>>>>> parent of 5cd8ae4 (jovi code)
 
 

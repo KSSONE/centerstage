@@ -8,7 +8,10 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 5cd8ae4 (jovi code)
 @TeleOp(name = "Jovi's Tele")
 
 public class linearslide extends LinearOpMode {

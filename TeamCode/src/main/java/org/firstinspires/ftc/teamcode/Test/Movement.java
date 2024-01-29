@@ -6,10 +6,13 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> parent of 5cd8ae4 (jovi code)
 @Autonomous(name="movi")
 
 public class Movement extends LinearOpMode {

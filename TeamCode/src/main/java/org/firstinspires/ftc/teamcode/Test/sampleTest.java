@@ -9,7 +9,11 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.JavaUtil;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+<<<<<<< HEAD
 
+=======
+//Tst for git
+>>>>>>> parent of 5cd8ae4 (jovi code)
 @TeleOp
 
 public class sampleTest extends LinearOpMode {

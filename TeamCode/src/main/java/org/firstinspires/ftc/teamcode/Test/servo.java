@@ -4,9 +4,13 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
+<<<<<<< HEAD
 @TeleOp
 
 
+=======
+@TeleOp(name= "launcher")
+>>>>>>> parent of 5cd8ae4 (jovi code)
 public class servo extends LinearOpMode {
     private Servo claw, clawa;
 
