@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Main;
+package org.firstinspires.ftc.teamcode.Main.Parking;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
@@ -9,8 +9,9 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 @Config
-@Autonomous(name = "BBR")
-public class BBR extends LinearOpMode {
+@Autonomous(name = "BBL")
+public class BBL extends LinearOpMode {
+
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -26,7 +27,7 @@ public class BBR extends LinearOpMode {
 
         while (!isStopRequested()) {
             TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
-                    .forward(51)
+                    .forward(3)
                     .turn(Math.toRadians(-90))
                     .back(88)
                     .build();

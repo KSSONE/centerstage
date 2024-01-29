@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Main;
+package org.firstinspires.ftc.teamcode.Main.Auto;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -18,9 +18,9 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
-@Autonomous(name = "BOTTOMBLUE")
+@Autonomous(name = "TOPBLUE")
 
-public class BOTTOMBLUE extends LinearOpMode {
+public class TOPBLUE extends LinearOpMode {
 
     Servo claw, angle;
     DcMotorEx LL, LR;
@@ -79,16 +79,16 @@ public class BOTTOMBLUE extends LinearOpMode {
                 TrajectorySequence to_back = drive.trajectorySequenceBuilder(startPose)
                         .forward(26)
                         .turn(Math.toRadians(90))
-                        .forward(85)
+                        .forward(30)
                         .build();
                 TrajectorySequence right = drive.trajectorySequenceBuilder(to_back.end())
-                        .strafeRight(6)
+                        .strafeLeft(6)
                         .build();
                 TrajectorySequence center = drive.trajectorySequenceBuilder(to_back.end())
-                        .strafeLeft(1)
+                        .strafeRight(1)
                         .build();
                 TrajectorySequence left = drive.trajectorySequenceBuilder(to_back.end())
-                        .strafeLeft(7)
+                        .strafeRight(7)
                         .build();
 
                 drive.followTrajectorySequence(to_back);
