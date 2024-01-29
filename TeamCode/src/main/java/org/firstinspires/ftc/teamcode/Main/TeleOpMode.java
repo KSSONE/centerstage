@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.Main;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -19,20 +18,11 @@ public class TeleOpMode extends LinearOpMode {
     DcMotorEx intake;
     DcMotorEx rightFront, leftRear, rightRear, leftFront, LL, LR;
 
-<<<<<<< HEAD
-    public DigitalChannel slideLimitSwitch;
-<<<<<<< HEAD
-    boolean manual = false;
-=======
-    boolean manual= false;
->>>>>>> parent of 5cd8ae4 (jovi code)
-=======
     int open = 1;
 
     public DigitalChannel slideLimitSwitch, slideLimitSwitch1;
     boolean manual= false;
     double pos = 0.41;
->>>>>>> parent of eacff73 (.)
 
     public void runOpMode() throws InterruptedException {
 
@@ -50,15 +40,8 @@ public class TeleOpMode extends LinearOpMode {
         LR.setDirection(DcMotor.Direction.FORWARD);
         // Declare our servo
 
-<<<<<<< HEAD
-        claw = hardwareMap.get(Servo.class, "claw");
-=======
         claw = hardwareMap.get(Servo.class,"claw");
-<<<<<<< HEAD
->>>>>>> parent of 5cd8ae4 (jovi code)
-=======
         angle = hardwareMap.servo.get("angle");
->>>>>>> parent of eacff73 (.)
 
         // Declare our motors
 
@@ -84,13 +67,13 @@ public class TeleOpMode extends LinearOpMode {
         leftFront.setDirection(DcMotorEx.Direction.FORWARD);
         rightFront.setDirection(DcMotorEx.Direction.REVERSE);
         leftRear.setDirection(DcMotorEx.Direction.FORWARD);
-        rightRear.setDirection(DcMotorEx.Direction.REVERSE);
+        rightRear.setDirection(DcMotorEx.Direction.FORWARD);
 
         // Retrieve the IMU from the hardware map
         IMU imu = hardwareMap.get(IMU.class, "imu");
         // Adjust the orientation parameters to match your robot
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
                 RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
         // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
         imu.initialize(parameters);
@@ -142,63 +125,11 @@ public class TeleOpMode extends LinearOpMode {
     }
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
-
->>>>>>> parent of 5cd8ae4 (jovi code)
-    public void claw() {
-        if (gamepad1.a) {
-            claw.setPosition(0.3);
-            telemetry.addData("Claw Position", "Open");
-
-<<<<<<< HEAD
-=======
-
-
 
 
     public void claw() {
-<<<<<<< HEAD
->>>>>>> parent of eacff73 (.)
-        if (gamepad2.a) {
-            claw.setPosition(0.03);
-            telemetry.addData("Claw Position", "Closes");
 
-        } else if (gamepad2.b) {
-            claw.setPosition(0);
-            telemetry.addData("Claw Position", "Opens");
-        }
-        telemetry.addData("Servo Position", "%.2f", claw.getPosition());
-
-<<<<<<< HEAD
-        if (gamepad1.b) {
-            claw.setPosition(0.01);
-            telemetry.addData("Claw Position", "Open");
-        }
-        if (gamepad1.a) {
-            claw.setPosition(0.03);
-            telemetry.addData("Claw Position", "Close");
-        }
-
-
-        if (gamepad1.a) {
-            claw.setPosition(0.3);
-            telemetry.addData("Claw Position", "Open");
-
-
-            if (gamepad1.a) {
-                claw.setPosition(0.3);
-                telemetry.addData("Claw Position", "Open");
-=======
-        } else if (gamepad1.b) {
-            claw.setPosition(0);
-            telemetry.addData("Claw Position", "Closed");
-        }
-        telemetry.addData("Servo Position", "%.2f", claw.getPosition());
->>>>>>> parent of 5cd8ae4 (jovi code)
-=======
+        if (gamepad1.x) {
             if (gamepad1.b){
                 claw.setPosition(0.01);
                 telemetry.addData("Claw Position", "Open");
@@ -207,38 +138,22 @@ public class TeleOpMode extends LinearOpMode {
                 claw.setPosition(0.03);
                 telemetry.addData("Claw Position", "Close");
             }
->>>>>>> 5cd8ae410786cfbc1f0e08f5ee04e97f8d06e9e7
->>>>>>> parent of eacff73 (.)
-
-        telemetry.addData("Claw Position", "%.2f", claw.getPosition());
-
-            } else if (gamepad1.b) {
-                claw.setPosition(0);
-                telemetry.addData("Claw Position", "Closed");
-            }
-            telemetry.addData("Servo Position", "%.2f", claw.getPosition());
-
 
         }
+        telemetry.addData("Claw Position", "%.2f", claw.getPosition());
+
     }
 
-        public void Intake() {
-            if (gamepad1.right_bumper) {
-
-                intake.setPower(1);
-                telemetry.addData("Intake:", "Forward");
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
+    public void Intake() {
+        if (gamepad1.right_bumper) {
+            intake.setPower(1);
+            telemetry.addData("Intake:", "Forward");
             LL.setTargetPosition(50);
             LR.setTargetPosition(50);
             LL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             LR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             LR.setPower(.5);
             LL.setPower(.5);
->>>>>>> 5cd8ae410786cfbc1f0e08f5ee04e97f8d06e9e7
->>>>>>> parent of eacff73 (.)
         }
         else if (gamepad1.left_bumper){
             intake.setPower(-1);
@@ -247,86 +162,21 @@ public class TeleOpMode extends LinearOpMode {
             intake.setPower(0);
             telemetry.addData("Intake:", "Stopped");
         }
->>>>>>> parent of 5cd8ae4 (jovi code)
 
-                intake.setPower(1);
-                telemetry.addData("Intake:", "Forward");
 
-<<<<<<< HEAD
-                LL.setTargetPosition(50);
-                LR.setTargetPosition(50);
-                LL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                LR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                LR.setPower(.5);
-                LL.setPower(.5);
-
-            } else if (gamepad1.left_bumper) {
-                intake.setPower(-1);
-                telemetry.addData("Intake:", "Reverse");
-            } else {
-                intake.setPower(0);
-                telemetry.addData("Intake:", "Stopped");
-=======
     }
     public void Linearslide() {
         /*telemetry.addData("Manual",manual);
         if (gamepad1.x){
             if (manual == false){
                 manual = true;
->>>>>>> parent of 5cd8ae4 (jovi code)
             }
-
-
+            else if (manual){
+                manual = false;
+            }
+            sleep (150);
         }
-<<<<<<< HEAD
-        public void Linearslide() {
-            if (gamepad1.x) {
-                if (manual == false) {
-                    manual = true;
-                } else if (manual) {
-                    manual = false;
-                }
-                sleep(150);
-            }
-            if (slideLimitSwitch.getState()) {
-                LL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                LL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                LR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                LR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            }
-            if (gamepad1.y && !manual) {
-                LL.setTargetPosition(3500);
-                LR.setTargetPosition(3500);
-                LL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                LR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                LR.setPower(0.7);
-                LL.setPower(0.7);
-            } else if (gamepad1.a && !manual) {
-                LL.setTargetPosition(-5);
-                LR.setTargetPosition(-5);
-                LL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                LR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                LR.setPower(0.7);
-                LL.setPower(0.7);
-            } else if (gamepad1.y && manual && LL.getCurrentPosition() < 3600) {
-                LR.setPower(0.7);
-                LL.setPower(0.7);
-            } else if (gamepad1.a && manual && !slideLimitSwitch.getState()) {
-                LR.setPower(-0.7);
-                LL.setPower(-0.7);
-            } else {
-                LR.setPower(0);
-                LL.setPower(0);
-            }
-        }
-<<<<<<< HEAD
-    }
-
-=======
-        if (slideLimitSwitch.getState()) {
-=======
         if (slideLimitSwitch.getState() || slideLimitSwitch1.getState()) {
->>>>>>> parent of eacff73 (.)
             LL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             LL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             LR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -392,7 +242,6 @@ public class TeleOpMode extends LinearOpMode {
             LR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             LR.setPower(.5);
             LL.setPower(.5);
-            angle.setPosition(0.41);
         }
 
         telemetry.addData("Right Linear ", LR.getCurrentPosition());
@@ -402,17 +251,26 @@ public class TeleOpMode extends LinearOpMode {
 
     }
     public void angle(){
-        if (gamepad1.y){
-            angle.setPosition(0.41);
+        if (gamepad2.y){
+            pos += 0.1;
+            sleep(300);
         }
-        else if (gamepad1.x) {
-            angle.setPosition(0.31);
+        else if (gamepad2.a){
+            pos -= 0.1;
+            sleep(300);
         }
+        else if (gamepad2.x){
+            pos += 0.01;
+            sleep(300);
+
+        }
+        else if (gamepad2.b){
+            pos -= 0.01;
+            sleep(300);
+        }
+        angle.setPosition(pos);
 
         telemetry.addData("Servo angle Position", "%.2f", angle.getPosition());
 
     }
 }
->>>>>>> parent of 5cd8ae4 (jovi code)
-
-
