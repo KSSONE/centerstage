@@ -5,17 +5,11 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.Range;
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 //@Autonomous(name = "PD Test")
-=======
-@Disabled
-=======
 
->>>>>>> parent of 5cd8ae4 (jovi code)
 @Autonomous(name = "PD Test")
->>>>>>> 5cd8ae410786cfbc1f0e08f5ee04e97f8d06e9e7
+
 public class pdTest extends LinearOpMode {
 
     private DcMotorEx motorBackLeft;

@@ -9,17 +9,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.JavaUtil;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-//Tst for git
-<<<<<<< HEAD
-<<<<<<< HEAD
-//@TeleOp
-=======
 
-@Disabled
-=======
->>>>>>> parent of 5cd8ae4 (jovi code)
 @TeleOp
->>>>>>> 5cd8ae410786cfbc1f0e08f5ee04e97f8d06e9e7
+
 public class sampleTest extends LinearOpMode {
     //drive
     private DcMotorEx motorFrontLeft = null;

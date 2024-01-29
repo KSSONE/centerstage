@@ -20,7 +20,7 @@ public class TeleOpMode extends LinearOpMode {
     DcMotorEx rightFront, leftRear, rightRear, leftFront, LL, LR;
 
     public DigitalChannel slideLimitSwitch;
-    boolean manual= false;
+    boolean manual = false;
 
     public void runOpMode() throws InterruptedException {
 
@@ -38,7 +38,7 @@ public class TeleOpMode extends LinearOpMode {
         LR.setDirection(DcMotor.Direction.FORWARD);
         // Declare our servo
 
-        claw = hardwareMap.get(Servo.class,"claw");
+        claw = hardwareMap.get(Servo.class, "claw");
 
         // Declare our motors
 
@@ -121,11 +121,8 @@ public class TeleOpMode extends LinearOpMode {
     }
 
 
-
-
     public void claw() {
-<<<<<<< HEAD
-<<<<<<< HEAD
+
         if (gamepad2.a) {
             claw.setPosition(0.03);
             telemetry.addData("Claw Position", "Closes");
@@ -135,106 +132,104 @@ public class TeleOpMode extends LinearOpMode {
             telemetry.addData("Claw Position", "Opens");
         }
         telemetry.addData("Servo Position", "%.2f", claw.getPosition());
-=======
 
-            if (gamepad1.b){
-                claw.setPosition(0.01);
-                telemetry.addData("Claw Position", "Open");
-            }
-            if (gamepad1.a){
-                claw.setPosition(0.03);
-                telemetry.addData("Claw Position", "Close");
-            }
->>>>>>> 5cd8ae410786cfbc1f0e08f5ee04e97f8d06e9e7
-=======
+        if (gamepad1.b) {
+            claw.setPosition(0.01);
+            telemetry.addData("Claw Position", "Open");
+        }
+        if (gamepad1.a) {
+            claw.setPosition(0.03);
+            telemetry.addData("Claw Position", "Close");
+        }
+
+
         if (gamepad1.a) {
             claw.setPosition(0.3);
             telemetry.addData("Claw Position", "Open");
 
-        } else if (gamepad1.b) {
-            claw.setPosition(0);
-            telemetry.addData("Claw Position", "Closed");
+
+            if (gamepad1.a) {
+                claw.setPosition(0.3);
+                telemetry.addData("Claw Position", "Open");
+
+
+            } else if (gamepad1.b) {
+                claw.setPosition(0);
+                telemetry.addData("Claw Position", "Closed");
+            }
+            telemetry.addData("Servo Position", "%.2f", claw.getPosition());
+
+
         }
-        telemetry.addData("Servo Position", "%.2f", claw.getPosition());
->>>>>>> parent of 5cd8ae4 (jovi code)
-
-
     }
 
-    public void Intake() {
-        if (gamepad1.right_bumper) {
-<<<<<<< HEAD
-            intake.setPower(1);
-            telemetry.addData("Intake:", "Forward");
-=======
+        public void Intake() {
+            if (gamepad1.right_bumper) {
+
                 intake.setPower(1);
                 telemetry.addData("Intake:", "Forward");
-<<<<<<< HEAD
-            LL.setTargetPosition(50);
-            LR.setTargetPosition(50);
-            LL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            LR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            LR.setPower(.5);
-            LL.setPower(.5);
->>>>>>> 5cd8ae410786cfbc1f0e08f5ee04e97f8d06e9e7
-=======
->>>>>>> parent of 5cd8ae4 (jovi code)
-        }
-        else if (gamepad1.left_bumper){
-            intake.setPower(-1);
-            telemetry.addData("Intake:", "Reverse");
-        }else{
-            intake.setPower(0);
-            telemetry.addData("Intake:", "Stopped");
-        }
+
+                intake.setPower(1);
+                telemetry.addData("Intake:", "Forward");
+
+                LL.setTargetPosition(50);
+                LR.setTargetPosition(50);
+                LL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                LR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                LR.setPower(.5);
+                LL.setPower(.5);
+
+            } else if (gamepad1.left_bumper) {
+                intake.setPower(-1);
+                telemetry.addData("Intake:", "Reverse");
+            } else {
+                intake.setPower(0);
+                telemetry.addData("Intake:", "Stopped");
+            }
 
 
-    }
-    public void Linearslide() {
-        if (gamepad1.x){
-            if (manual == false){
-                manual = true;
+        }
+        public void Linearslide() {
+            if (gamepad1.x) {
+                if (manual == false) {
+                    manual = true;
+                } else if (manual) {
+                    manual = false;
+                }
+                sleep(150);
             }
-            else if (manual){
-                manual = false;
+            if (slideLimitSwitch.getState()) {
+                LL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                LL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                LR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                LR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             }
-            sleep (150);
-        }
-        if (slideLimitSwitch.getState()) {
-            LL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            LL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            LR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            LR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        }
-        if (gamepad1.y && !manual){
-            LL.setTargetPosition(3500);
-            LR.setTargetPosition(3500);
-            LL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            LR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            LR.setPower(0.7);
-            LL.setPower(0.7);
-        }
-        else if (gamepad1.a && !manual){
-            LL.setTargetPosition(-5);
-            LR.setTargetPosition(-5);
-            LL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            LR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            LR.setPower(0.7);
-            LL.setPower(0.7);
-        }
-        else if (gamepad1.y && manual && LL.getCurrentPosition() < 3600){
-            LR.setPower(0.7);
-            LL.setPower(0.7);
-        }
-        else if (gamepad1.a && manual && !slideLimitSwitch.getState()){
-            LR.setPower(-0.7);
-            LL.setPower(-0.7);
-        }
-        else {
-            LR.setPower(0);
-            LL.setPower(0);
+            if (gamepad1.y && !manual) {
+                LL.setTargetPosition(3500);
+                LR.setTargetPosition(3500);
+                LL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                LR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                LR.setPower(0.7);
+                LL.setPower(0.7);
+            } else if (gamepad1.a && !manual) {
+                LL.setTargetPosition(-5);
+                LR.setTargetPosition(-5);
+                LL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                LR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                LR.setPower(0.7);
+                LL.setPower(0.7);
+            } else if (gamepad1.y && manual && LL.getCurrentPosition() < 3600) {
+                LR.setPower(0.7);
+                LL.setPower(0.7);
+            } else if (gamepad1.a && manual && !slideLimitSwitch.getState()) {
+                LR.setPower(-0.7);
+                LL.setPower(-0.7);
+            } else {
+                LR.setPower(0);
+                LL.setPower(0);
+            }
         }
     }
-}
+
 
 

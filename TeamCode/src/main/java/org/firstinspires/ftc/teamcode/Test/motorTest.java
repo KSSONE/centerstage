@@ -6,17 +6,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-//@Autonomous
-=======
-@Disabled
-=======
-
->>>>>>> parent of 5cd8ae4 (jovi code)
 @Autonomous
->>>>>>> 5cd8ae410786cfbc1f0e08f5ee04e97f8d06e9e7
+
 public class motorTest extends LinearOpMode {
     DcMotorEx rightFront, leftRear, rightRear, leftfront;
 

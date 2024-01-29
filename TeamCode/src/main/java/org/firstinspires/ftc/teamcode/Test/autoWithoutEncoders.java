@@ -3,15 +3,9 @@ package org.firstinspires.ftc.teamcode.Test;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-<<<<<<< HEAD
 
-<<<<<<< HEAD
-=======
-@Disabled
-=======
->>>>>>> parent of 5cd8ae4 (jovi code)
 @Autonomous
->>>>>>> 5cd8ae410786cfbc1f0e08f5ee04e97f8d06e9e7
+
 public class autoWithoutEncoders extends LinearOpMode {
 
 
