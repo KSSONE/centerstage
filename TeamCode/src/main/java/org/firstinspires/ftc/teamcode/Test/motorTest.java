@@ -1,17 +1,20 @@
 package org.firstinspires.ftc.teamcode.Test;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 //@Autonomous
 =======
 @Disabled
+=======
+
+>>>>>>> parent of 5cd8ae4 (jovi code)
 @Autonomous
 >>>>>>> 5cd8ae410786cfbc1f0e08f5ee04e97f8d06e9e7
 public class motorTest extends LinearOpMode {
@@ -37,15 +40,15 @@ public class motorTest extends LinearOpMode {
         leftfront.setDirection(DcMotorEx.Direction.FORWARD);
         rightFront.setDirection(DcMotorEx.Direction.REVERSE);
         leftRear.setDirection(DcMotorEx.Direction.FORWARD);
-        rightRear.setDirection(DcMotorEx.Direction.REVERSE);
+        rightRear.setDirection(DcMotorEx.Direction.FORWARD);
 
 
         waitForStart();
         while (opModeIsActive()) {
-            leftfront.setPower(0.5);
-            rightFront.setPower(0.5);
-            leftRear.setPower(0.5);
-            rightRear.setPower(0.5);
+            leftfront.setPower(0.1);
+            rightFront.setPower(0.1);
+            leftRear.setPower(0.1);
+            rightRear.setPower(0.1);
 
 
         }

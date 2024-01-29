@@ -1,9 +1,8 @@
 package org.firstinspires.ftc.teamcode.Helpers;
 // Import necessary FTC classes
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-@Disabled
+
 // Define your op mode
 public class OdometryMovement extends LinearOpMode {
 

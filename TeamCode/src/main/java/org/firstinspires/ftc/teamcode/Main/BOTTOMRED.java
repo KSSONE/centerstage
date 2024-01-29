@@ -46,7 +46,7 @@ public class BOTTOMRED extends LinearOpMode {
         waitForStart();
         if (opModeIsActive()) {
             while (opModeIsActive()) {
-                sleep(4000); // Tensorflow
+                sleep(3000); // Tensorflow
                 int location = 3000;
                 telemetryTfod();
                 location = telemetryTfodmain();
@@ -170,7 +170,7 @@ public class BOTTOMRED extends LinearOpMode {
         if (detectionBool != 0) {
             for (Recognition recognition : myTfodRecognitions) {
 
-                float x =  (recognition.getLeft() + recognition.getRight()) / 2;
+                float x = x = (recognition.getLeft() + recognition.getRight()) / 2;
 
                 // Put ranges for x and y coordinates
                 double xMaxRangec = 580; // Your minimum x value

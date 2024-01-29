@@ -1,5 +1,4 @@
 package org.firstinspires.ftc.teamcode.Test;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
@@ -12,10 +11,13 @@ import org.firstinspires.ftc.robotcore.external.JavaUtil;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 //Tst for git
 <<<<<<< HEAD
+<<<<<<< HEAD
 //@TeleOp
 =======
 
 @Disabled
+=======
+>>>>>>> parent of 5cd8ae4 (jovi code)
 @TeleOp
 >>>>>>> 5cd8ae410786cfbc1f0e08f5ee04e97f8d06e9e7
 public class sampleTest extends LinearOpMode {

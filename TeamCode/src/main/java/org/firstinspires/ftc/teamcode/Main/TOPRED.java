@@ -3,11 +3,6 @@ package org.firstinspires.ftc.teamcode.Main;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DigitalChannel;
-import com.qualcomm.robotcore.hardware.Servo;
-
 import java.util.List;
 import org.firstinspires.ftc.robotcore.external.JavaUtil;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
@@ -22,8 +17,6 @@ import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
 public class TOPRED extends LinearOpMode {
 
-    Servo claw, angle;
-    DcMotorEx LL, LR;
     boolean USE_WEBCAM;
     TfodProcessor myTfodProcessor;
     VisionPortal myVisionPortal;
@@ -41,22 +34,6 @@ public class TOPRED extends LinearOpMode {
         drive.setPoseEstimate(startPose);
 
 
-        LL = hardwareMap.get(DcMotorEx.class, "LL");
-        LL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        LL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        LL.setDirection(DcMotor.Direction.REVERSE);
-
-
-        LR = hardwareMap.get(DcMotorEx.class, "LR");
-        LR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        LR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        LR.setDirection(DcMotor.Direction.FORWARD);
-        // Declare our servo
-
-        claw = hardwareMap.get(Servo.class,"claw");
-        angle = hardwareMap.servo.get("angle");
-
-
 
         USE_WEBCAM = true;
 
@@ -69,7 +46,7 @@ public class TOPRED extends LinearOpMode {
         waitForStart();
         if (opModeIsActive()) {
             while (opModeIsActive()) {
-                sleep(4000); // Tensorflow
+                sleep(3000); // Tensorflow
                 int location = 3000;
                 telemetryTfod();
                 location = telemetryTfodmain();
@@ -79,7 +56,7 @@ public class TOPRED extends LinearOpMode {
                 TrajectorySequence to_back = drive.trajectorySequenceBuilder(startPose)
                         .forward(26)
                         .turn(Math.toRadians(90))
-                        .back(30)
+                        .back(26)
                         .build();
 
                 TrajectorySequence right = drive.trajectorySequenceBuilder(to_back.end())
@@ -93,29 +70,16 @@ public class TOPRED extends LinearOpMode {
                         .build();
 
 
-                angle.setPosition(0.41);
-                claw.setPosition(0.01);
                 drive.followTrajectorySequence(to_back);
-                claw.setPosition(0.03);
-                LL.setTargetPosition(2700);
-                LR.setTargetPosition(2700);
-                LL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                LR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                LR.setPower(.5);
-                LL.setPower(.5);
-                if (LL.getCurrentPosition() >= 2690) {
-                    angle.setPosition(0.31);
-                    sleep(20);
-                    claw.setPosition(0.01);
+                if (location == 1){
+                    drive.followTrajectorySequence(left);
                 }
-                LL.setTargetPosition(5);
-                LR.setTargetPosition(5);
-                LL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                LR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                LR.setPower(.5);
-                LL.setPower(.5);
-                claw.setPosition(0.03);
-                angle.setPosition(0.41);
+                else if (location == 2){
+                    drive.followTrajectorySequence(center);
+
+                } else if (location == 3){
+                    drive.followTrajectorySequence(right);
+                }
                 sleep(300000);
 
             }

@@ -45,9 +45,13 @@ public class TB extends LinearOpMode {
                     .strafeRight(10)
                     .build();
 
+            TrajectorySequence left = drive.trajectorySequenceBuilder(startPose)
+                    .strafeRight(7)
+                    .build();
 
 
             drive.followTrajectorySequence(trajSeq);
+            drive.followTrajectorySequence(left);
             sleep(30000);
         }
     }

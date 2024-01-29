@@ -1,16 +1,19 @@
 package org.firstinspires.ftc.teamcode.Test;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 //@Autonomous(name="movi")
 =======
 @Disabled
+=======
+
+>>>>>>> parent of 5cd8ae4 (jovi code)
 @Autonomous(name="movi")
 >>>>>>> 5cd8ae410786cfbc1f0e08f5ee04e97f8d06e9e7
 public class Movement extends LinearOpMode {
