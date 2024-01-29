@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Test;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.openftc.apriltag.AprilTagDetection;
@@ -11,8 +12,13 @@ import org.openftc.easyopencv.OpenCvInternalCamera;
 
 import java.util.Base64;
 
+<<<<<<< HEAD
 
 
+=======
+@Disabled
+@Autonomous
+>>>>>>> 5cd8ae410786cfbc1f0e08f5ee04e97f8d06e9e7
 public class  autoWithEncoders extends LinearOpMode {
     
     private DcMotor frontLeft, frontRight, rearLeft, rearRight;

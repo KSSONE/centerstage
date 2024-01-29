@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Test;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import java.util.List;
@@ -81,7 +82,7 @@ public class ODCM extends LinearOpMode {
         }
         // Add myTfodProcessor to the VisionPortal.Builder.
         myVisionPortalBuilder.addProcessor(myTfodProcessor);
-        // Create a VisionPortal by calling build.
+
         myVisionPortal = myVisionPortalBuilder.build();
     }
 

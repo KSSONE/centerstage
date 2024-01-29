@@ -1,10 +1,11 @@
-package org.firstinspires.ftc.teamcode.drive;
+package org.firstinspires.ftc.teamcode.Main;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 /*
@@ -21,15 +22,14 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
  * These coefficients can be tuned live in dashboard.
  */
 @Config
-@Autonomous(group = "drive")
-public class TB extends LinearOpMode {
-    public static double DISTANCE = 30; // in
+@Autonomous(name = "TBR")
+public class TBR extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        Pose2d startPose = new Pose2d(-DISTANCE / 2, -DISTANCE / 2, 0);
+        Pose2d startPose = new Pose2d(0, 0, 0);
 
         drive.setPoseEstimate(startPose);
 
@@ -39,14 +39,10 @@ public class TB extends LinearOpMode {
 
         while (!isStopRequested()) {
             TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
-                    .forward(26)
-                    .turn(Math.toRadians(90))
-                    .forward(26)
-                    .strafeRight(10)
+                    .forward(51)
+                    .turn(Math.toRadians(-90))
+                    .back(40)
                     .build();
-
-
-
             drive.followTrajectorySequence(trajSeq);
             sleep(30000);
         }

@@ -1,10 +1,16 @@
 package org.firstinspires.ftc.teamcode.Test;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+<<<<<<< HEAD
 
 //@Autonomous
+=======
+@Disabled
+@Autonomous
+>>>>>>> 5cd8ae410786cfbc1f0e08f5ee04e97f8d06e9e7
 public class Odometerytry extends LinearOpMode {
     DcMotorEx rightFront, leftRear, rightRear, leftFront, rightEn, leftEn, frontEn;
 

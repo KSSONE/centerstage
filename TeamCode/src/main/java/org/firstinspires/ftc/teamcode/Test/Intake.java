@@ -1,16 +1,21 @@
 package org.firstinspires.ftc.teamcode.Test;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+<<<<<<< HEAD
 
 
+=======
+@Disabled
+@TeleOp(name = "Intake")
+>>>>>>> 5cd8ae410786cfbc1f0e08f5ee04e97f8d06e9e7
 public class Intake extends LinearOpMode {
     DcMotorEx intake;
-
 
 
     @Override

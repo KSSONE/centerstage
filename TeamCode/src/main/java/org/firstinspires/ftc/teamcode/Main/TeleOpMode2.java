@@ -12,8 +12,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
-@TeleOp(name = "FinalTeleOp")
-public class TeleOpMode extends LinearOpMode {
+@TeleOp(name = "FinalTeleOp2")
+public class TeleOpMode2 extends LinearOpMode {
 
     Servo claw, angle;
     DcMotorEx intake;
@@ -24,6 +24,10 @@ public class TeleOpMode extends LinearOpMode {
     public DigitalChannel slideLimitSwitch, slideLimitSwitch1;
     boolean manual= false;
     double pos = 0.41;
+
+    float y;
+    float x;
+    double rx;
 
     public void runOpMode() throws InterruptedException {
 
@@ -70,14 +74,6 @@ public class TeleOpMode extends LinearOpMode {
         leftRear.setDirection(DcMotorEx.Direction.FORWARD);
         rightRear.setDirection(DcMotorEx.Direction.REVERSE);
 
-        // Retrieve the IMU from the hardware map
-        IMU imu = hardwareMap.get(IMU.class, "imu");
-        // Adjust the orientation parameters to match your robot
-        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
-        // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
-        imu.initialize(parameters);
 
 
         waitForStart();
@@ -85,38 +81,7 @@ public class TeleOpMode extends LinearOpMode {
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
-            double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
-            double x = gamepad1.left_stick_x;
-            double rx = gamepad1.right_stick_x;
-
-            // This button choice was made so that it is hard to hit on accident,
-            // it can be freely changed based on preference.
-            // The equivalent button is start on Xbox-style controllers.
-            if (gamepad1.back) {
-                imu.resetYaw();
-            }
-
-            double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
-
-            // Rotate the movement direction counter to the bot's rotation
-            double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
-            double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
-
-            rotX = rotX * 1.1;  // Counteract imperfect strafing
-
-            // Denominator is the largest motor power (absolute value) or 1
-            // This ensures all the powers maintain the same ratio,
-            // but only if at least one is out of the range [-1, 1]
-            double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
-            double frontLeftPower = (rotY + rotX + rx) / denominator;
-            double backLeftPower = (rotY - rotX + rx) / denominator;
-            double frontRightPower = (rotY - rotX - rx) / denominator;
-            double backRightPower = (rotY + rotX - rx) / denominator;
-
-            leftFront.setPower(frontLeftPower);
-            leftRear.setPower(backLeftPower);
-            rightFront.setPower(frontRightPower);
-            rightRear.setPower(backRightPower);
+            mechanumDrive();
             Linearslide();
             Intake();
             claw();
@@ -125,23 +90,28 @@ public class TeleOpMode extends LinearOpMode {
         }
     }
 
+    private void mechanumDrive() {
+        y = -gamepad1.left_stick_y;
+        x = gamepad1.left_stick_x;
+        // Counteract imperfect strafing
+        rx = gamepad1.right_stick_x * 1.1;
 
+        // Denominator is the largest motor power
+        // (absolute value) or 1.
+        // This ensures all the powers maintain
+        // the same ratio, but only when at least one is
+        // out of the range [-1, 1].
 
+        double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
+        // Make sure your ID's match your configuration
+        leftFront.setPower((((y + x) + rx) / denominator) * ((0.5 * (gamepad1.left_trigger - 1) * (gamepad1.left_trigger - 1) + 0.4) * (0.4 * (gamepad1.right_trigger) * (gamepad1.right_trigger) + 0.6)));
+        leftRear.setPower((((y - x) + rx) / denominator) * ((0.5 * (gamepad1.left_trigger - 1) * (gamepad1.left_trigger - 1) + 0.4) * (0.4 * (gamepad1.right_trigger) * (gamepad1.right_trigger) + 0.6)));
+        rightFront.setPower((((y - x) - rx) / denominator) * ((0.5 * (gamepad1.left_trigger - 1) * (gamepad1.left_trigger - 1) + 0.4) * (0.4 * (gamepad1.right_trigger) * (gamepad1.right_trigger) + 0.6)));
+        rightRear.setPower((((y + x) - rx) / denominator) * ((0.5 * (gamepad1.left_trigger - 1) * (gamepad1.left_trigger - 1) + 0.4) * (0.4 * (gamepad1.right_trigger) * (gamepad1.right_trigger) + 0.6)));
 
-
+    }
 
     public void claw() {
-<<<<<<< HEAD
-        if (gamepad2.a) {
-            claw.setPosition(0.03);
-            telemetry.addData("Claw Position", "Closes");
-
-        } else if (gamepad2.b) {
-            claw.setPosition(0);
-            telemetry.addData("Claw Position", "Opens");
-        }
-        telemetry.addData("Servo Position", "%.2f", claw.getPosition());
-=======
 
             if (gamepad1.b){
                 claw.setPosition(0.01);
@@ -150,28 +120,22 @@ public class TeleOpMode extends LinearOpMode {
             if (gamepad1.a){
                 claw.setPosition(0.03);
                 telemetry.addData("Claw Position", "Close");
-            }
->>>>>>> 5cd8ae410786cfbc1f0e08f5ee04e97f8d06e9e7
 
+        }
         telemetry.addData("Claw Position", "%.2f", claw.getPosition());
 
     }
 
     public void Intake() {
         if (gamepad1.right_bumper) {
-<<<<<<< HEAD
             intake.setPower(1);
             telemetry.addData("Intake:", "Forward");
-=======
-                intake.setPower(1);
-                telemetry.addData("Intake:", "Forward");
             LL.setTargetPosition(50);
             LR.setTargetPosition(50);
             LL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             LR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             LR.setPower(.5);
             LL.setPower(.5);
->>>>>>> 5cd8ae410786cfbc1f0e08f5ee04e97f8d06e9e7
         }
         else if (gamepad1.left_bumper){
             intake.setPower(-1);
@@ -254,13 +218,15 @@ public class TeleOpMode extends LinearOpMode {
             LL.setPower(.5);
         }
         if (gamepad1.dpad_down) {
+            angle.setPosition(0.41);
             LL.setTargetPosition(-5);
             LR.setTargetPosition(-5);
             LL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             LR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             LR.setPower(.5);
             LL.setPower(.5);
-            angle.setPosition(0.41);
+
+
         }
 
         telemetry.addData("Right Linear ", LR.getCurrentPosition());
@@ -276,10 +242,7 @@ public class TeleOpMode extends LinearOpMode {
         else if (gamepad1.x) {
             angle.setPosition(0.31);
         }
-
         telemetry.addData("Servo angle Position", "%.2f", angle.getPosition());
 
     }
 }
-
-
