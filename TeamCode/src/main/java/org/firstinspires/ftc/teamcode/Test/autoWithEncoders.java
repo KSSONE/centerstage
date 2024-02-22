@@ -12,15 +12,9 @@ import org.openftc.easyopencv.OpenCvInternalCamera;
 
 import java.util.Base64;
 
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
-
-
-=======
 @Disabled
->>>>>>> parent of eacff73 (.)
+
 @Autonomous
 
 public class  autoWithEncoders extends LinearOpMode {

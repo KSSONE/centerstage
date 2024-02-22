@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode.Main;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotorControllerEx;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -14,7 +16,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 @TeleOp(name = "FinalTeleOp")
 public class TeleOpMode extends LinearOpMode {
 
-    Servo claw, angle;
+    Servo claw,plane;
     DcMotorEx intake;
     DcMotorEx rightFront, leftRear, rightRear, leftFront, LL, LR;
 
@@ -40,8 +42,9 @@ public class TeleOpMode extends LinearOpMode {
         LR.setDirection(DcMotor.Direction.FORWARD);
         // Declare our servo
 
-        claw = hardwareMap.get(Servo.class,"claw");
-        angle = hardwareMap.servo.get("angle");
+        claw = hardwareMap.get(Servo.class,"box");
+        plane = hardwareMap.get(Servo.class,"plane");
+
 
         // Declare our motors
 
@@ -52,7 +55,7 @@ public class TeleOpMode extends LinearOpMode {
 
         // Make sure your ID's match your configuration
         rightFront = hardwareMap.get(DcMotorEx.class, "right_front");
-        rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightFront.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 
         leftRear = hardwareMap.get(DcMotorEx.class, "left_rear");
         leftRear.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
@@ -61,19 +64,27 @@ public class TeleOpMode extends LinearOpMode {
         rightRear.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 
         leftFront = hardwareMap.get(DcMotorEx.class, "left_front");
-        leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftFront.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 
         //Directon
         leftFront.setDirection(DcMotorEx.Direction.FORWARD);
         rightFront.setDirection(DcMotorEx.Direction.REVERSE);
         leftRear.setDirection(DcMotorEx.Direction.FORWARD);
-        rightRear.setDirection(DcMotorEx.Direction.FORWARD);
+        rightRear.setDirection(DcMotorEx.Direction.REVERSE);
+
+        //Zero Stop
+        leftFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        leftRear.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        rightRear.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        rightFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+
+
 
         // Retrieve the IMU from the hardware map
         IMU imu = hardwareMap.get(IMU.class, "imu");
         // Adjust the orientation parameters to match your robot
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
+                RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
                 RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
         // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
         imu.initialize(parameters);
@@ -119,7 +130,8 @@ public class TeleOpMode extends LinearOpMode {
             Linearslide();
             Intake();
             claw();
-            angle();
+            launch();
+            //angle();
             telemetry.update();
         }
     }
@@ -129,17 +141,15 @@ public class TeleOpMode extends LinearOpMode {
 
     public void claw() {
 
-        if (gamepad1.x) {
             if (gamepad1.b){
-                claw.setPosition(0.01);
+                claw.setPosition(0.8);
                 telemetry.addData("Claw Position", "Open");
             }
             if (gamepad1.a){
-                claw.setPosition(0.03);
+                claw.setPosition(0.5);
                 telemetry.addData("Claw Position", "Close");
             }
 
-        }
         telemetry.addData("Claw Position", "%.2f", claw.getPosition());
 
     }
@@ -268,9 +278,12 @@ public class TeleOpMode extends LinearOpMode {
             pos -= 0.01;
             sleep(300);
         }
-        angle.setPosition(pos);
 
-        telemetry.addData("Servo angle Position", "%.2f", angle.getPosition());
-
+    }
+    public void launch(){
+        plane.setPosition(0.3);
+        if(gamepad1.guide){
+            plane.setPosition(0);
+        }
     }
 }

@@ -22,7 +22,7 @@ import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
 public class TOPRED extends LinearOpMode {
 
-    Servo claw, angle;
+    Servo box, side;
     DcMotorEx LL, LR;
     boolean USE_WEBCAM;
     TfodProcessor myTfodProcessor;
@@ -53,8 +53,8 @@ public class TOPRED extends LinearOpMode {
         LR.setDirection(DcMotor.Direction.FORWARD);
         // Declare our servo
 
-        claw = hardwareMap.get(Servo.class,"claw");
-        angle = hardwareMap.servo.get("angle");
+        box = hardwareMap.get(Servo.class,"box");
+        side = hardwareMap.get(Servo.class,"drop");
 
 
 
@@ -69,53 +69,87 @@ public class TOPRED extends LinearOpMode {
         waitForStart();
         if (opModeIsActive()) {
             while (opModeIsActive()) {
-                sleep(4000); // Tensorflow
                 int location = 3000;
                 telemetryTfod();
                 location = telemetryTfodmain();
                 telemetry.addData("Location", location);
                 telemetry.update();
-                //Movement setup
-                TrajectorySequence to_back = drive.trajectorySequenceBuilder(startPose)
-                        .forward(26)
-                        .turn(Math.toRadians(90))
-                        .back(30)
-                        .build();
-
-                TrajectorySequence right = drive.trajectorySequenceBuilder(to_back.end())
+                TrajectorySequence left = drive.trajectorySequenceBuilder(startPose)
+                        .addTemporalMarker(0, () -> {
+                            boxclose();
+                            hold();
+                        })
+                        .forward(28)
+                        .strafeLeft(4)
+                        .addTemporalMarker(2.8, () -> {
+                            drop();
+                        })
+                        .strafeRight(10)
+                        .turn(Math.toRadians(-90))
+                        .addTemporalMarker(5, () -> {
+                            linearup();
+                        })
+                        .forward(35)
                         .strafeLeft(6)
+                        .addTemporalMarker(11, () -> {
+                            boxopen();
+                        })
+                        .addTemporalMarker(18, () -> {
+                            lineardown();
+                        })
                         .build();
-                TrajectorySequence center = drive.trajectorySequenceBuilder(to_back.end())
-                        .strafeRight(1)
+                TrajectorySequence center = drive.trajectorySequenceBuilder(startPose)
+                        .addTemporalMarker(0, () -> {
+                            boxclose();
+                            hold();
+                        })
+                        .forward(29)
+                        .turn(Math.toRadians(-90))
+                        .addTemporalMarker(3.2, () -> {
+                            drop();
+                            linearup();
+                        })
+                        .forward(40)
+                        .addTemporalMarker(10.5, () -> {
+                            boxopen();
+                        })
+                        .addTemporalMarker(17, () -> {
+                            lineardown();
+                        })
+
                         .build();
-                TrajectorySequence left = drive.trajectorySequenceBuilder(to_back.end())
-                        .strafeRight(7)
+                TrajectorySequence right = drive.trajectorySequenceBuilder(startPose)
+                        .addTemporalMarker(0, () -> {
+                            boxclose();
+                            hold();
+                        })
+                        .strafeRight(21)
+                        .forward(29)
+                        .turn(Math.toRadians(-90))
+                        .addTemporalMarker(3.2, () -> {
+                            drop();
+                            linearup();
+                        })
+                        .forward(20)
+                        .strafeRight(10)
+                        .addTemporalMarker(10.5, () -> {
+                            boxopen();
+                        })
+                        .addTemporalMarker(17, () -> {
+                            lineardown();
+                        })
+
                         .build();
 
-
-                angle.setPosition(0.41);
-                claw.setPosition(0.01);
-                drive.followTrajectorySequence(to_back);
-                claw.setPosition(0.03);
-                LL.setTargetPosition(2700);
-                LR.setTargetPosition(2700);
-                LL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                LR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                LR.setPower(.5);
-                LL.setPower(.5);
-                if (LL.getCurrentPosition() >= 2690) {
-                    angle.setPosition(0.31);
-                    sleep(20);
-                    claw.setPosition(0.01);
+                if (location == 1){
+                    drive.followTrajectorySequence(left);
                 }
-                LL.setTargetPosition(5);
-                LR.setTargetPosition(5);
-                LL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                LR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                LR.setPower(.5);
-                LL.setPower(.5);
-                claw.setPosition(0.03);
-                angle.setPosition(0.41);
+                else if (location == 2){
+                    drive.followTrajectorySequence(center);
+
+                } else if (location == 3){
+                    drive.followTrajectorySequence(right);
+                }
                 sleep(300000);
 
             }
@@ -241,5 +275,33 @@ public class TOPRED extends LinearOpMode {
         }
 
         return position;
+    }
+    void linearup(){
+        LL.setTargetPosition(1800);
+        LR.setTargetPosition(1800);
+        LL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        LR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        LR.setPower(.5);
+        LL.setPower(.5);
+    }
+    void lineardown(){
+        LL.setTargetPosition(5);
+        LR.setTargetPosition(5);
+        LL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        LR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        LR.setPower(.5);
+        LL.setPower(.5);
+    }
+    void boxopen(){
+        box.setPosition(0.8);
+    }
+    void boxclose(){
+        box.setPosition(0.5);
+    }
+    void drop(){
+        side.setPosition(0.05);
+    }
+    void hold(){
+        side.setPosition(0.1);
     }
 }

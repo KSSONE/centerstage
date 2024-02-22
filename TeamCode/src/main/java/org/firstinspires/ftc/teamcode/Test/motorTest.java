@@ -7,15 +7,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
-
-//@Autonomous
-=======
 @Disabled
->>>>>>> parent of eacff73 (.)
+
 @Autonomous
 
 public class motorTest extends LinearOpMode {

@@ -126,7 +126,6 @@ public class BOTTOMBLUE extends LinearOpMode {
         myTfodProcessorBuilder.setModelAspectRatio(16 / 9);
         // Create a TfodProcessor by calling build.
         myTfodProcessor = myTfodProcessorBuilder.build();
-
         // Next, create a VisionPortal.Builder and set attributes related to the camera.
         myVisionPortalBuilder = new VisionPortal.Builder();
         if (USE_WEBCAM) {
@@ -199,7 +198,7 @@ public class BOTTOMBLUE extends LinearOpMode {
 
                 // second
                 double xMaxRangel = 249; // Your minimum x value
-                double xMinRangel = 40; // Your maximum x value
+                double xMinRangel = 0; // Your maximum x value
 
 
                 if (x <= xMaxRangec && x >= xMinRangec) {
@@ -226,5 +225,24 @@ public class BOTTOMBLUE extends LinearOpMode {
         }
 
         return position;
+    }
+    void linearup(){
+        LL.setTargetPosition(2900);
+        LR.setTargetPosition(2900);
+        LL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        LR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        LR.setPower(.5);
+        LL.setPower(.5);
+    }
+    void lineardown(){
+        LL.setTargetPosition(5);
+        LR.setTargetPosition(5);
+        LL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        LR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        LR.setPower(.5);
+        LL.setPower(.5);
+    }
+    void servoopen(){
+
     }
 }
