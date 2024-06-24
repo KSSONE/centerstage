@@ -191,7 +191,7 @@ public class TOPBLUE extends LinearOpMode {
         if (detectionBool != 0) {
             for (Recognition recognition : myTfodRecognitions) {
 
-                float x = x = (recognition.getLeft() + recognition.getRight()) / 2;
+                float x = (recognition.getLeft() + recognition.getRight()) / 2;
 
                 // Put ranges for x and y coordinates
                 double xMaxRangec = 580; // Your minimum x value

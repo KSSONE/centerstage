@@ -3,6 +3,11 @@ package org.firstinspires.ftc.teamcode.Main.Auto;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.Servo;
+
 import java.util.List;
 import org.firstinspires.ftc.robotcore.external.JavaUtil;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
@@ -17,6 +22,8 @@ import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
 public class BOTTOMRED extends LinearOpMode {
 
+    Servo box, side;
+    DcMotorEx LL, LR;
     boolean USE_WEBCAM;
     TfodProcessor myTfodProcessor;
     VisionPortal myVisionPortal;
@@ -29,9 +36,25 @@ public class BOTTOMRED extends LinearOpMode {
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        Pose2d startPose = new Pose2d(128, 27, 180);
+        Pose2d startPose = new Pose2d(128, 74, 180);
 
         drive.setPoseEstimate(startPose);
+
+
+        LL = hardwareMap.get(DcMotorEx.class, "LL");
+        LL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        LL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        LL.setDirection(DcMotor.Direction.REVERSE);
+
+
+        LR = hardwareMap.get(DcMotorEx.class, "LR");
+        LR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        LR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        LR.setDirection(DcMotor.Direction.FORWARD);
+        // Declare our servo
+
+        box = hardwareMap.get(Servo.class,"box");
+        side = hardwareMap.get(Servo.class,"drop");
 
 
 
@@ -46,31 +69,51 @@ public class BOTTOMRED extends LinearOpMode {
         waitForStart();
         if (opModeIsActive()) {
             while (opModeIsActive()) {
-                sleep(4000); // Tensorflow
                 int location = 3000;
                 telemetryTfod();
                 location = telemetryTfodmain();
                 telemetry.addData("Location", location);
                 telemetry.update();
-                //Movement setup
-                TrajectorySequence to_back = drive.trajectorySequenceBuilder(startPose)
-                        .forward(26)
-                        .turn(Math.toRadians(90))
-                        .back(76)
+                TrajectorySequence left = drive.trajectorySequenceBuilder(startPose)
+                        .addTemporalMarker(0, () -> {
+                            boxclose();
+                            hold();
+                        })
+                        .forward(28)
+                        .strafeLeft(4)
+                        .addTemporalMarker(2.8, () -> {
+                            drop();
+                        })
+                        .strafeRight(4)
+                        .forward(28)
+                        .turn(Math.toRadians(-90))
+                        .forward(90)
+
+                        .build();
+                TrajectorySequence center = drive.trajectorySequenceBuilder(startPose)
+                        .addTemporalMarker(0, () -> {
+                            boxclose();
+                            hold();
+                        })
+                        .forward(29)
+                        .turn(Math.toRadians(-90))
+                        .addTemporalMarker(3.2, () -> {
+                            drop();
+                        })
+                        .build();
+                TrajectorySequence right = drive.trajectorySequenceBuilder(startPose)
+                        .addTemporalMarker(0, () -> {
+                            boxclose();
+                            hold();
+                        })
+                        .forward(29)
+                        .strafeRight(21)
+                        .addTemporalMarker(3.2, () -> {
+                            drop();
+                            linearup();
+                        })
                         .build();
 
-                TrajectorySequence right = drive.trajectorySequenceBuilder(to_back.end())
-                        .strafeLeft(6)
-                        .build();
-                TrajectorySequence center = drive.trajectorySequenceBuilder(to_back.end())
-                        .strafeRight(1)
-                        .build();
-                TrajectorySequence left = drive.trajectorySequenceBuilder(to_back.end())
-                        .strafeRight(7)
-                        .build();
-
-
-                drive.followTrajectorySequence(to_back);
                 if (location == 1){
                     drive.followTrajectorySequence(left);
                 }
@@ -170,7 +213,7 @@ public class BOTTOMRED extends LinearOpMode {
         if (detectionBool != 0) {
             for (Recognition recognition : myTfodRecognitions) {
 
-                float x =  (recognition.getLeft() + recognition.getRight()) / 2;
+                float x = x = (recognition.getLeft() + recognition.getRight()) / 2;
 
                 // Put ranges for x and y coordinates
                 double xMaxRangec = 580; // Your minimum x value
@@ -205,5 +248,33 @@ public class BOTTOMRED extends LinearOpMode {
         }
 
         return position;
+    }
+    void linearup(){
+        LL.setTargetPosition(1800);
+        LR.setTargetPosition(1800);
+        LL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        LR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        LR.setPower(.5);
+        LL.setPower(.5);
+    }
+    void lineardown(){
+        LL.setTargetPosition(5);
+        LR.setTargetPosition(5);
+        LL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        LR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        LR.setPower(.5);
+        LL.setPower(.5);
+    }
+    void boxopen(){
+        box.setPosition(0.8);
+    }
+    void boxclose(){
+        box.setPosition(0.5);
+    }
+    void drop(){
+        side.setPosition(0.05);
+    }
+    void hold(){
+        side.setPosition(0.1);
     }
 }

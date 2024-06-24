@@ -15,7 +15,7 @@ public class Servotest extends LinearOpMode {
     @Override
     public void runOpMode() {
         claw = hardwareMap.servo.get("launcher");
-        double pos = 0.4;
+        double pos = 0.0;
 
 
         waitForStart();
