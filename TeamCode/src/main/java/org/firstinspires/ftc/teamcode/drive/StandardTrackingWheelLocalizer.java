@@ -28,15 +28,20 @@ import java.util.List;
  */
 @Config
 public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer {
-    public static double TICKS_PER_REV = 2000;
-    public static double WHEEL_RADIUS = 0.94488; // in
-    public static double GEAR_RATIO = 1; // output (wheel) speed / input (encoder) speed
+    public static double TICKS_PER_REV = 2000; // 537.7 is the number of "ticks" the encoders will count per revolution.
+    public static double WHEEL_RADIUS = 1.69291; // 96 r = 48// is the radius of the dead wheel. Make sure this is the radius, not diameter.
+    public static double GEAR_RATIO = 1;
+    // output (wheel) speed / input (encoder) speed
+    // is the ratio of the output (wheel) speed to input (encoder) speed. If you are not gearing your encoders, leave this at 1.
 
-    public static double LATERAL_DISTANCE = 12.80; // in; distance between the left and right wheels
-    public static double FORWARD_OFFSET = 7.33; // in; offset of the lateral wheel
+    public static double LATERAL_DISTANCE = 16.5; // in; distance between the left and right wheels
+    public static double FORWARD_OFFSET = 8.5;
+    // The FORWARD_OFFSET is positive when in front of the wheels and negative when behind the wheels (closer to the back).
+    // in; is the distance from the center of rotation to the middle wheel.
+    // in; offset of the lateral wheel
 
-    public static double X_MULTIPLIER = 1; // Multiplier in the X direction
-    public static double Y_MULTIPLIER = 1; // Multiplier in the Y direction
+    public static double X_MULTIPLIER = 1.01123596; // Multiplier in the X direction
+    public static double Y_MULTIPLIER = 0.5;// Multiplier in the Y direction
 
     private Encoder leftEncoder, rightEncoder, frontEncoder;
 
@@ -53,14 +58,15 @@ public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer 
         lastEncPositions = lastTrackingEncPositions;
         lastEncVels = lastTrackingEncVels;
 
+
         leftEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "left_rear"));
         rightEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "right_rear"));
         frontEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "left_front"));
 
         // TODO: reverse any encoders using Encoder.setDirection(Encoder.Direction.REVERSE)
-        leftEncoder.setDirection(Encoder.Direction.REVERSE);
+        leftEncoder.setDirection(Encoder.Direction.FORWARD);
         rightEncoder.setDirection(Encoder.Direction.REVERSE);
-        frontEncoder.setDirection(Encoder.Direction.REVERSE);
+        frontEncoder.setDirection(Encoder.Direction.FORWARD);
     }
 
     public static double encoderTicksToInches(double ticks) {

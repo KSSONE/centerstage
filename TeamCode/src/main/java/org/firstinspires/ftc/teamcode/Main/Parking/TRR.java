@@ -26,6 +26,7 @@ public class TRR extends LinearOpMode {
 
         while (!isStopRequested()) {
             TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
+                    //one block is 24
                     .forward(3)
                     .turn(Math.toRadians(90))
                     .back(40)

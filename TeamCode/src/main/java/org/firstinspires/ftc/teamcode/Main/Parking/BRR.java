@@ -26,9 +26,11 @@ public class BRR extends LinearOpMode {
 
         while (!isStopRequested()) {
             TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
-                    .forward(3)
-                    .turn(Math.toRadians(90))
-                    .back(88)
+                    //.forward(0.5)
+                    .turn(-90)
+                  //  .back(0.5)
+                  //  .turn(Math.toRadians(90))
+                 //   .back(88)
                     .build();
             drive.followTrajectorySequence(trajSeq);
             sleep(30000);
